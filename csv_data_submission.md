@@ -17,6 +17,8 @@ All client data must be submitted in a CSV file with the following required colu
 - **Group**: Group or category the patient belongs to. (String)
 - **TimezoneId**: Timezone identifier, consistent with the TZ database format. For a complete list of acceptable timezone identifiers, please refer to the [List of TZ Database Time Zones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) on Wikipedia. (String)
 
+See the sample template for examples of properly formatted [a relative link](TemplateCSVSubmission-Example.csv)
+
 ## Data Submission Requirements
 - **All fields are required**: Each column must be populated with valid data; otherwise, the record will be rejected.
 - **Date Format**: All dates must follow the YYYY-MM-DD format.
