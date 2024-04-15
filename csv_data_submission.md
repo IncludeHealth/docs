@@ -33,4 +33,4 @@ See the sample template for examples of properly formatted [CSV example file](Te
 - **Failed Results**: If a patient's data cannot be matched to a provided PlanId, it will be flagged in a "failed results" CSV file which will also be available on the sFTP server.
 
 ## Support
-For any issues or questions regarding data submission or format, please contact our technical support team at infrastructure@includehealth.com.
+For any issues or questions regarding data submission or format, please contact our technical support team at support@includehealth.com.
