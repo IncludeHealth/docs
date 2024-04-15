@@ -8,7 +8,7 @@ All client data must be submitted in a CSV file with the following required colu
 
 - **FirstName**: First name of the patient. (String)
 - **LastName**: Last name of the patient. (String)
-- **Date of birth**: Date of birth of the patient, formatted as YYYY-MM-DD. (Date)
+- **DateOfBirth**: Date of birth of the patient, formatted as YYYY-MM-DD. (Date)
 - **Email**: Email address of the patient. (String)
 - **PhoneNumber**: Contact phone number of the patient, including only the numeric characters, with the +1 US country code assumed. (Numeric)
 - **PatientId**: A unique identifier for the patient. (String or Numeric)
