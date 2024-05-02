@@ -1,0 +1,4 @@
+FirstName,LastName,DateOfBirth,Email,PhoneNumber,PatientId,PlanId,StartDate,Group,TimezoneId
+Elliott,Smith,1980-04-15,elliott.Smith@includehealth.com,9375551234,8456871,6f605c72-a842-49e3-949b-08dc53e65668,2024-04-16,ExampleGroup,America/New_York
+Heath,Cluin,1995-01-03,health.Cluin@includehealth.com,6145551234,892468123,6f605c72-a842-49e3-949b-08dc53e65668,2024-05-01,IncludeHealth,America/New_York
+Smith,Robert,1967-07-04,bsmith@gmail.com,6145551212,D23292,0b1e451e-622b-477b-a5ca-ca57b49eff76,2024-04-20,OrthoExample,America/Los_Angeles
