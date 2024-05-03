@@ -721,7 +721,7 @@
   }
 };
             defs["patientPostRequest"] = {
-  "required" : [ "emailAddress", "firstName", "lastName", "patientId", "phoneNumber", "timezone" ],
+  "required" : [ "emailAddress", "externalPatientId", "firstName", "lastName", "phoneNumber", "timezone" ],
   "type" : "object",
   "properties" : {
     "dateOfBirth" : {
@@ -741,7 +741,7 @@
       "minLength" : 1,
       "type" : "string"
     },
-    "patientId" : {
+    "externalPatientId" : {
       "minLength" : 1,
       "type" : "string"
     },
@@ -775,86 +775,6 @@
     "patientId" : {
       "type" : "string",
       "description" : "Gets or sets the external Patient identifier."
-    }
-  }
-};
-            defs["sessionReport"] = {
-  "type" : "object",
-  "properties" : {
-    "id" : {
-      "type" : "string",
-      "format" : "uuid"
-    },
-    "start" : {
-      "type" : "string",
-      "format" : "date-time"
-    },
-    "end" : {
-      "type" : "string",
-      "format" : "date-time"
-    },
-    "episode" : {
-      "$ref" : "#/components/schemas/sessionReportEpisode"
-    },
-    "activities" : {
-      "type" : "array",
-      "items" : {
-        "$ref" : "#/components/schemas/sessionReportActivity"
-      }
-    }
-  }
-};
-            defs["sessionReportActivity"] = {
-  "type" : "object",
-  "properties" : {
-    "id" : {
-      "type" : "string",
-      "format" : "uuid"
-    },
-    "start" : {
-      "type" : "string",
-      "format" : "date-time"
-    },
-    "end" : {
-      "type" : "string",
-      "format" : "date-time"
-    },
-    "name" : {
-      "type" : "string"
-    },
-    "measurements" : {
-      "type" : "array",
-      "items" : {
-        "$ref" : "#/components/schemas/sessionReportActivityMeasurement"
-      }
-    }
-  }
-};
-            defs["sessionReportActivityMeasurement"] = {
-  "type" : "object",
-  "properties" : {
-    "name" : {
-      "type" : "string"
-    },
-    "value" : {
-      "type" : "number",
-      "format" : "double"
-    },
-    "displayValue" : {
-      "type" : "string"
-    }
-  }
-};
-            defs["sessionReportEpisode"] = {
-  "type" : "object",
-  "properties" : {
-    "id" : {
-      "type" : "string",
-      "format" : "uuid"
-    },
-    "referredOn" : {
-      "type" : "string",
-      "format" : "date-time"
     }
   }
 };
@@ -1308,7 +1228,7 @@ except ApiException as e:
                         <p class="marked">Adds a new Plan for the specified Patient to the database.</p>
                         <p></p>
                         <br />
-                        <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/api/v1/patient/{patientId}/plan</span></code></pre>
+                        <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/api/v1/patient/{externalPatientId}/plan</span></code></pre>
                         <p>
                           <h3>Usage and SDK Samples</h3>
                         </p>
@@ -1332,7 +1252,7 @@ except ApiException as e:
 \
 -H "Accept: application/json"\
 -H "Content-Type: application/json"\
-"http://localhost:7071/api/v1/patient/{patientId}/plan?"</code></pre>
+"http://localhost:7071/api/v1/patient/{externalPatientId}/plan?"</code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Patient-assignPlan-0-java">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
@@ -1355,10 +1275,10 @@ public class PatientApiExample {
         //function_key.setApiKeyPrefix("Token");
 
         PatientApi apiInstance = new PatientApi();
-        UUID patientId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // UUID | The external system's Id for the the patient.
+        UUID externalPatientId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // UUID | The external system's Id for the the patient.
         PatientPlanPostRequest body = ; // PatientPlanPostRequest | Information required to add a Plan to a Patient
         try {
-            patientPlanPostResponse result = apiInstance.assignPlan(patientId, body);
+            patientPlanPostResponse result = apiInstance.assignPlan(externalPatientId, body);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling PatientApi#assignPlan");
@@ -1375,10 +1295,10 @@ public class PatientApiExample {
 
     public static void main(String[] args) {
         PatientApi apiInstance = new PatientApi();
-        UUID patientId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // UUID | The external system's Id for the the patient.
+        UUID externalPatientId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // UUID | The external system's Id for the the patient.
         PatientPlanPostRequest body = ; // PatientPlanPostRequest | Information required to add a Plan to a Patient
         try {
-            patientPlanPostResponse result = apiInstance.assignPlan(patientId, body);
+            patientPlanPostResponse result = apiInstance.assignPlan(externalPatientId, body);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling PatientApi#assignPlan");
@@ -1397,13 +1317,13 @@ public class PatientApiExample {
 [apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"code"];
 // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 //[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"code"];
-UUID *patientId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // The external system's Id for the the patient.
+UUID *externalPatientId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // The external system's Id for the the patient.
 PatientPlanPostRequest *body = ; // Information required to add a Plan to a Patient (optional)
 
 PatientApi *apiInstance = [[PatientApi alloc] init];
 
 // Assigns a new Plan to the specified patient.
-[apiInstance assignPlanWith:patientId
+[apiInstance assignPlanWith:externalPatientId
     body:body
               completionHandler: ^(patientPlanPostResponse output, NSError* error) {
                             if (output) {
@@ -1427,7 +1347,7 @@ function_key.apiKey = "YOUR API KEY"
 //function_key.apiKeyPrefix['code'] = "Token"
 
 var api = new IncludeHealthApi.PatientApi()
-var patientId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // {{UUID}} The external system's Id for the the patient.
+var externalPatientId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // {{UUID}} The external system's Id for the the patient.
 var opts = { 
   'body':  // {{PatientPlanPostRequest}} Information required to add a Plan to a Patient
 };
@@ -1438,7 +1358,7 @@ var callback = function(error, data, response) {
     console.log('API called successfully. Returned data: ' + data);
   }
 };
-api.assignPlan(patientId, opts, callback);
+api.assignPlan(externalPatientId, opts, callback);
 </code></pre>
                             </div>
 
@@ -1465,13 +1385,13 @@ namespace Example
             // Configuration.Default.ApiKeyPrefix.Add("code", "Bearer");
 
             var apiInstance = new PatientApi();
-            var patientId = new UUID(); // UUID | The external system's Id for the the patient.
+            var externalPatientId = new UUID(); // UUID | The external system's Id for the the patient.
             var body = new PatientPlanPostRequest(); // PatientPlanPostRequest | Information required to add a Plan to a Patient (optional) 
 
             try
             {
                 // Assigns a new Plan to the specified patient.
-                patientPlanPostResponse result = apiInstance.assignPlan(patientId, body);
+                patientPlanPostResponse result = apiInstance.assignPlan(externalPatientId, body);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -1494,11 +1414,11 @@ Swagger\Client\Configuration::getDefaultConfiguration()->setApiKey('code', 'YOUR
 // Swagger\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('code', 'Bearer');
 
 $api_instance = new Swagger\Client\ApiPatientApi();
-$patientId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // UUID | The external system's Id for the the patient.
+$externalPatientId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // UUID | The external system's Id for the the patient.
 $body = ; // PatientPlanPostRequest | Information required to add a Plan to a Patient
 
 try {
-    $result = $api_instance->assignPlan($patientId, $body);
+    $result = $api_instance->assignPlan($externalPatientId, $body);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling PatientApi->assignPlan: ', $e->getMessage(), PHP_EOL;
@@ -1517,11 +1437,11 @@ $WWW::SwaggerClient::Configuration::api_key->{'code'} = 'YOUR_API_KEY';
 #$WWW::SwaggerClient::Configuration::api_key_prefix->{'code'} = "Bearer";
 
 my $api_instance = WWW::SwaggerClient::PatientApi->new();
-my $patientId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; # UUID | The external system's Id for the the patient.
+my $externalPatientId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; # UUID | The external system's Id for the the patient.
 my $body = WWW::SwaggerClient::Object::PatientPlanPostRequest->new(); # PatientPlanPostRequest | Information required to add a Plan to a Patient
 
 eval { 
-    my $result = $api_instance->assignPlan(patientId => $patientId, body => $body);
+    my $result = $api_instance->assignPlan(externalPatientId => $externalPatientId, body => $body);
     print Dumper($result);
 };
 if ($@) {
@@ -1543,12 +1463,12 @@ swagger_client.configuration.api_key['code'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = swagger_client.PatientApi()
-patientId = 38400000-8cf0-11bd-b23e-10b96e4ef00d # UUID | The external system's Id for the the patient.
+externalPatientId = 38400000-8cf0-11bd-b23e-10b96e4ef00d # UUID | The external system's Id for the the patient.
 body =  # PatientPlanPostRequest | Information required to add a Plan to a Patient (optional)
 
 try: 
     # Assigns a new Plan to the specified patient.
-    api_response = api_instance.assign_plan(patientId, body=body)
+    api_response = api_instance.assign_plan(externalPatientId, body=body)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling PatientApi->assignPlan: %s\n" % e)</code></pre>
@@ -1563,11 +1483,11 @@ except ApiException as e:
                                   <th width="150px">Name</th>
                                   <th>Description</th>
                                 </tr>
-                                  <tr><td style="width:150px;">patientId*</td>
+                                  <tr><td style="width:150px;">externalPatientId*</td>
                                   <td>
                                   
                                   
-                                      <div id="d2e199_assignPlan_patientId">
+                                      <div id="d2e199_assignPlan_externalPatientId">
                                           <div class="json-schema-view">
                                               <div class="primitive">
                                                   <span class="type">
@@ -1708,7 +1628,7 @@ except ApiException as e:
                         <p class="marked">Returns an access token that can be used to perform the specified plan.</p>
                         <p></p>
                         <br />
-                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/api/v1/patient/{patientId}/plan/{planId}/token</span></code></pre>
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/api/v1/patient/{externalPatientId}/plan/{planId}/token</span></code></pre>
                         <p>
                           <h3>Usage and SDK Samples</h3>
                         </p>
@@ -1731,7 +1651,7 @@ except ApiException as e:
                            <pre class="prettyprint"><code class="language-bsh">curl -X GET\
 \
 -H "Accept: application/json"\
-"http://localhost:7071/api/v1/patient/{patientId}/plan/{planId}/token?"</code></pre>
+"http://localhost:7071/api/v1/patient/{externalPatientId}/plan/{planId}/token?"</code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Patient-getPlanToken-0-java">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
@@ -1754,10 +1674,10 @@ public class PatientApiExample {
         //function_key.setApiKeyPrefix("Token");
 
         PatientApi apiInstance = new PatientApi();
-        String patientId = patientId_example; // String | The external system's Id for the the patient.
+        String externalPatientId = externalPatientId_example; // String | The external system's Id for the the patient.
         UUID planId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // UUID | The Id of the template plan to assign.
         try {
-            'String' result = apiInstance.getPlanToken(patientId, planId);
+            'String' result = apiInstance.getPlanToken(externalPatientId, planId);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling PatientApi#getPlanToken");
@@ -1774,10 +1694,10 @@ public class PatientApiExample {
 
     public static void main(String[] args) {
         PatientApi apiInstance = new PatientApi();
-        String patientId = patientId_example; // String | The external system's Id for the the patient.
+        String externalPatientId = externalPatientId_example; // String | The external system's Id for the the patient.
         UUID planId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // UUID | The Id of the template plan to assign.
         try {
-            'String' result = apiInstance.getPlanToken(patientId, planId);
+            'String' result = apiInstance.getPlanToken(externalPatientId, planId);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling PatientApi#getPlanToken");
@@ -1796,13 +1716,13 @@ public class PatientApiExample {
 [apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"code"];
 // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 //[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"code"];
-String *patientId = patientId_example; // The external system's Id for the the patient.
+String *externalPatientId = externalPatientId_example; // The external system's Id for the the patient.
 UUID *planId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // The Id of the template plan to assign.
 
 PatientApi *apiInstance = [[PatientApi alloc] init];
 
 // Gets an access token for the specified plan.
-[apiInstance getPlanTokenWith:patientId
+[apiInstance getPlanTokenWith:externalPatientId
     planId:planId
               completionHandler: ^('String' output, NSError* error) {
                             if (output) {
@@ -1826,7 +1746,7 @@ function_key.apiKey = "YOUR API KEY"
 //function_key.apiKeyPrefix['code'] = "Token"
 
 var api = new IncludeHealthApi.PatientApi()
-var patientId = patientId_example; // {{String}} The external system's Id for the the patient.
+var externalPatientId = externalPatientId_example; // {{String}} The external system's Id for the the patient.
 var planId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // {{UUID}} The Id of the template plan to assign.
 
 var callback = function(error, data, response) {
@@ -1836,7 +1756,7 @@ var callback = function(error, data, response) {
     console.log('API called successfully. Returned data: ' + data);
   }
 };
-api.getPlanToken(patientId, planId, callback);
+api.getPlanToken(externalPatientId, planId, callback);
 </code></pre>
                             </div>
 
@@ -1863,13 +1783,13 @@ namespace Example
             // Configuration.Default.ApiKeyPrefix.Add("code", "Bearer");
 
             var apiInstance = new PatientApi();
-            var patientId = patientId_example;  // String | The external system's Id for the the patient.
+            var externalPatientId = externalPatientId_example;  // String | The external system's Id for the the patient.
             var planId = new UUID(); // UUID | The Id of the template plan to assign.
 
             try
             {
                 // Gets an access token for the specified plan.
-                'String' result = apiInstance.getPlanToken(patientId, planId);
+                'String' result = apiInstance.getPlanToken(externalPatientId, planId);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -1892,11 +1812,11 @@ Swagger\Client\Configuration::getDefaultConfiguration()->setApiKey('code', 'YOUR
 // Swagger\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('code', 'Bearer');
 
 $api_instance = new Swagger\Client\ApiPatientApi();
-$patientId = patientId_example; // String | The external system's Id for the the patient.
+$externalPatientId = externalPatientId_example; // String | The external system's Id for the the patient.
 $planId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // UUID | The Id of the template plan to assign.
 
 try {
-    $result = $api_instance->getPlanToken($patientId, $planId);
+    $result = $api_instance->getPlanToken($externalPatientId, $planId);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling PatientApi->getPlanToken: ', $e->getMessage(), PHP_EOL;
@@ -1915,11 +1835,11 @@ $WWW::SwaggerClient::Configuration::api_key->{'code'} = 'YOUR_API_KEY';
 #$WWW::SwaggerClient::Configuration::api_key_prefix->{'code'} = "Bearer";
 
 my $api_instance = WWW::SwaggerClient::PatientApi->new();
-my $patientId = patientId_example; # String | The external system's Id for the the patient.
+my $externalPatientId = externalPatientId_example; # String | The external system's Id for the the patient.
 my $planId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; # UUID | The Id of the template plan to assign.
 
 eval { 
-    my $result = $api_instance->getPlanToken(patientId => $patientId, planId => $planId);
+    my $result = $api_instance->getPlanToken(externalPatientId => $externalPatientId, planId => $planId);
     print Dumper($result);
 };
 if ($@) {
@@ -1941,12 +1861,12 @@ swagger_client.configuration.api_key['code'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = swagger_client.PatientApi()
-patientId = patientId_example # String | The external system's Id for the the patient.
+externalPatientId = externalPatientId_example # String | The external system's Id for the the patient.
 planId = 38400000-8cf0-11bd-b23e-10b96e4ef00d # UUID | The Id of the template plan to assign.
 
 try: 
     # Gets an access token for the specified plan.
-    api_response = api_instance.get_plan_token(patientId, planId)
+    api_response = api_instance.get_plan_token(externalPatientId, planId)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling PatientApi->getPlanToken: %s\n" % e)</code></pre>
@@ -1961,11 +1881,11 @@ except ApiException as e:
                                   <th width="150px">Name</th>
                                   <th>Description</th>
                                 </tr>
-                                  <tr><td style="width:150px;">patientId*</td>
+                                  <tr><td style="width:150px;">externalPatientId*</td>
                                   <td>
                                   
                                   
-                                      <div id="d2e199_getPlanToken_patientId">
+                                      <div id="d2e199_getPlanToken_externalPatientId">
                                           <div class="json-schema-view">
                                               <div class="primitive">
                                                   <span class="type">
@@ -2137,7 +2057,7 @@ public class SessionApiExample {
         SessionApi apiInstance = new SessionApi();
         UUID id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // UUID | The Id for the the Session.
         try {
-            sessionReport result = apiInstance.getSessionReport(id);
+            Object result = apiInstance.getSessionReport(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling SessionApi#getSessionReport");
@@ -2156,7 +2076,7 @@ public class SessionApiExample {
         SessionApi apiInstance = new SessionApi();
         UUID id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // UUID | The Id for the the Session.
         try {
-            sessionReport result = apiInstance.getSessionReport(id);
+            Object result = apiInstance.getSessionReport(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling SessionApi#getSessionReport");
@@ -2181,7 +2101,7 @@ SessionApi *apiInstance = [[SessionApi alloc] init];
 
 // Gets a summary report for the specified Session.
 [apiInstance getSessionReportWith:id
-              completionHandler: ^(sessionReport output, NSError* error) {
+              completionHandler: ^(Object output, NSError* error) {
                             if (output) {
                                 NSLog(@"%@", output);
                             }
@@ -2244,7 +2164,7 @@ namespace Example
             try
             {
                 // Gets a summary report for the specified Session.
-                sessionReport result = apiInstance.getSessionReport(id);
+                Object result = apiInstance.getSessionReport(id);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -2391,11 +2311,12 @@ except ApiException as e:
   "content" : {
     "application/json" : {
       "schema" : {
-        "$ref" : "#/components/schemas/sessionReport"
+        "type" : "object",
+        "x-content-type" : "application/json"
       },
       "examples" : {
         "GetReportExample" : {
-          "value" : "{\"id\":\"b73b1c94-3661-4051-8951-6698c3ba691d\",\"start\":\"2024-04-04T09:01:02-05:00\",\"end\":\"2024-04-04T09:08:09-05:00\",\"episode\":{\"id\":\"00bac6aa-8d36-4ba3-bcd3-ec632514f860\",\"referredOn\":\"2024-04-03T12:34:56-05:00\"},\"activities\":[{\"id\":\"ee0bd684-c567-46cb-8f3a-4dfe5820e70f\",\"start\":\"2024-04-04T09:01:02-05:00\",\"end\":\"2024-04-04T09:05:06-05:00\",\"name\":\"Balance - Feet Together, 10s\",\"measurements\":[{\"name\":\"Lateral Trunk Lean ROM\",\"value\":5.102976708420755,\"displayValue\":\"5°\"}]},{\"id\":\"571c59bf-2113-4737-9f00-90ad30306f7b\",\"start\":\"2024-04-04T09:01:02-05:00\",\"end\":\"2024-04-04T09:05:06-05:00\",\"name\":\"Wong-Baker Pain Scale\",\"measurements\":[{\"name\":\"Wong-Baker Pain Scale\",\"value\":10.0,\"displayValue\":\"10\"}]}]}"
+          "value" : "{\"id\":\"b8a72b10-87af-4678-9a76-e98c82ad2b28\",\"start\":\"2024-04-04T09:01:02-05:00\",\"end\":\"2024-04-04T09:08:09-05:00\",\"episode\":{\"id\":\"ee98b1ff-829d-4947-8b5a-764850720dbc\",\"referredOn\":\"2024-04-03T12:34:56-05:00\"},\"activities\":[{\"id\":\"cde12988-4384-4a6f-a538-97bbf1d245d5\",\"start\":\"2024-04-04T09:01:02-05:00\",\"end\":\"2024-04-04T09:05:06-05:00\",\"name\":\"Balance - Feet Together, 10s\",\"measurements\":[{\"name\":\"Lateral Trunk Lean ROM\",\"value\":5.102976708420755,\"displayValue\":\"5°\"}]},{\"id\":\"6f27ebf6-cfd4-41f5-911e-0085e4114f37\",\"start\":\"2024-04-04T09:01:02-05:00\",\"end\":\"2024-04-04T09:05:06-05:00\",\"name\":\"Wong-Baker Pain Scale\",\"measurements\":[{\"name\":\"Wong-Baker Pain Scale\",\"value\":10.0,\"displayValue\":\"10\"}]}]}"
         }
       }
     }
