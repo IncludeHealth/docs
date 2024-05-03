@@ -1,0 +1,253 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation Template</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header>
+        <div id="header-content">
+            <img src="IncludeHealth_Favicon_512x512.png" alt="IncludeHealth Logo" id="logo"><span>IncludeHealth
+                Developer Documentation</span>
+        </div>
+    </header>
+    <div id="container">
+        <nav id="sidebar">
+            <ul>
+                <li>
+                    <a href="#Introduction">Introduction</a>
+                </li>
+                <li>
+                    <a href="#filetransfers">File Transfers</a>
+                </li>
+                <ul>
+                    <li>
+                        <a href="#sftp-access">sFTP Access</a>
+                        <ul>
+                            <li>
+                                <a href="#folders">Folders</a>
+                                <ul>
+                                    <li>
+                                        <a href="#input">input</a>
+                                    </li>
+                                    <li>
+                                        <a href="#output">output</a>
+                                    </li>
+                                    <li>
+                                        <a href="#errors">errors</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#data-submission">Data Submission</a>
+                        <ul>
+                            <li>
+                                <a href="#format">Format</a>
+                            </li>
+                            <li>
+                                <a href="#requirements">Requirements</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#data-retrieval">Data Retrieval</a>
+                        <ul>
+                            <li>
+                                <a href="#output-files">Output Files</a>
+                                <ul>
+                                    <li>
+                                        <a href="#weekly-status">Weekly Status</a>
+                                    </li>
+                                    <li>
+                                        <a href="#monthly-status">Monthly Status</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#security-and-compliance">Security and Compliance</a>
+                    </li>
+                    <li>
+                        <a href="#error-handling">Error Handling</a>
+                    </li>
+                </ul>
+                <li>
+                    <a href="/api.html">API Details</a>
+                </li>
+                <li>
+                    <a href="https://www.includehealth.com">IncludeHealth</a>
+                </li>
+            </ul>
+        </nav>
+        <main id="content">
+            <section id="Introduction">
+                <h1>Introduction</h1>
+                <p>This documentation site is designed to provide all necessary technical details and guidelines
+                    required for interacting with IncludeHealth systems. The site contains comprehensive guides,
+                    examples, and references to assist developers and partners in integrating and collaborating
+                    effectively with our solutions.</p>
+            </section>
+            <section id="filetransfers">
+                <h1>File Transfers</h1>
+                <p>This section provides detailed guidelines about the Secure File Transfer Protocol (sFTP) and CSV data
+                    handling for IncludeHealth. It is designed to help software developers understand how to prepare and
+                    submit client data, including Personal Health Information (PHI), to IncludeHealth in a secure and
+                    compliant manner. It also outlines the data submission format, requirements, retrieval, and error
+                    handling procedures.</p>
+            </section>
+            <section id="sftp-access">
+                <h1>sFTP Access</h1>
+                <p>Access to the IncludeHealth sFTP servers is provided in separate documentation along with specific
+                    credentials for tenant organizations. For additional assistance, please refer to the Help and
+                    Support documentation.</p>
+                <section id="folders">
+                    <h2>Folders</h2>
+                    <p>Accessing the sFTP server will grant access to three main folders: input, output, and errors,
+                        each serving different functions in the data management process.</p>
+                    <section id="input">
+                        <h3>Input</h3>
+                        <p>This is the target location to place files that will be ingested by the import services.</p>
+                    </section>
+                    <section id="output">
+                        <h3>Output</h3>
+                        <p>This is the location where all weekly and monthly files the system generates will be
+                            available for retrieval by the tenant organization.</p>
+                    </section>
+                    <section id="errors">
+                        <h3>Errors</h3>
+                        <p>Should any errors occur during the import process, a file will be created in this folder
+                            containing the affected patients' first and last names along with an error message.</p>
+                    </section>
+                </section>
+            </section>
+            <section id="data-submission">
+                <h1>Data Submission</h1>
+                <p>Guidelines for software developers on how to prepare and submit client data to IncludeHealth. Please
+                    ensure all data conforms to the structure and standards outlined below. The data includes Personal
+                    Health Information (PHI) and is protected under a Business Associate Agreement (BAA) with
+                    IncludeHealth.</p>
+                <section id="format">
+                    <h2>Format</h2>
+                    <p>All client data must be submitted in a CSV file with specified required columns.  Please review the CSV Example documentation</p>
+                    <ul>
+                    <li><strong>FirstName</strong>: First name of the patient. (String)</li>
+                    <li><strong>LastName</strong>: Last name of the patient. (String)</li>
+                    <li><strong>DateOfBirth</strong>: Date of birth of the patient, formatted as YYYY-MM-DD. (Date)</li>
+                    <li><strong>Email</strong>: Email address of the patient. (String)</li>
+                    <li><strong>PhoneNumber</strong>: Contact phone number of the patient, including only the numeric characters, with the +1 US country code assumed. (Numeric)</li>
+                    <li><strong>PatientId</strong>: A unique identifier for the patient. (String or Numeric)</li>
+                    <li><strong>PlanId</strong>: A unique identifier for the patient&#39;s plan, provided by IncludeHealth. This field is an enumeration related to the required assessment for the patient. If a match cannot be made, the patient will not be added, and this will be noted in a &quot;failed results&quot; CSV file. (String)</li>
+                    <li><strong>StartDate</strong>: Start date for the plan, formatted as YYYY-MM-DD. (Date)</li>
+                    <li><strong>Group</strong>: Group or category the patient belongs to. (String)</li>
+                    <li><strong>TimezoneId</strong>: Timezone identifier, consistent with the TZ database format. For a complete list of acceptable timezone identifiers, please refer to the <a href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones">List of TZ Database Time Zones</a> on Wikipedia. (String)</li>
+                    </ul>
+                    <p>See the sample template for examples of properly formatted CSV Example File below</p>
+                </section>
+                <section id="requirements">
+                    <h2>Requirements</h2>
+                    <p>Every column must be populated with valid data, otherwise, the record will be rejected. Specific
+                        formats for dates and other fields are also outlined.</p>
+                        <ul>
+                            <li><strong>All fields are required</strong>: Each column must be populated with valid data; otherwise, the record will be rejected.</li>
+                            <li><strong>Date Format</strong>: All dates must follow the YYYY-MM-DD format.</li>
+                            <li><strong>File Format</strong>: Data must be submitted in CSV format only.</li>
+                            <li><strong>Phone Number Format</strong>: Phone numbers must contain only numeric characters. It is assumed that all numbers are prefixed with the +1 US country code.</li>
+                        </ul>    
+                </section>
+            </section>
+            <section id="data-retrieval">
+                <h1>Data Retrieval</h1>
+                <p>Output files and error files will be placed in the appropriate sFTP folders for retrieval as detailed
+                    below.</p>
+                <section id="output-files">
+                    <h2>Output Files</h2>
+                    <p>Details on the structured output files provided weekly and monthly, including the types of data
+                        they contain and how they are formatted.</p>
+                    <section id="weekly-status">
+                        <h3>Weekly Status</h3>
+                        <p>A detailed account of weekly data including referrals, enrollments, and session activities.
+                            This includes comprehensive breakdowns of each patient's engagements and outcomes.</p>
+                            <p>Each week a file will be generated in JSON and xlsx formats and placed in the output folder.   </p>
+                            <ul>
+                                <li>"Start Date": Represents the start date of the weekly file process in the format "YYYY-MM-DD".</li>
+                                <li>"End Date": Represents the end date of the weekly file process in the format "YYYY-MM-DD".</li>
+                                <li>"Summary": Contains a summary of referrals and enrollments.
+                                    <ul>
+                                        <li>"Previous Week Referrals": The number of referrals from the previous week.</li>
+                                        <li>"Total Referrals": The total number of referrals to date.</li>
+                                        <li>"Previous Week Enrollments": The number of enrollments from the previous week.</li>
+                                        <li>"Total Enrollments": The total number of enrollments to date.</li>
+                                        <li>"Currently Enrolled": The number of patients currently enrolled.</li>
+                                    </ul>
+                                </li>
+                                <li>"Details": An array containing detailed information about each patient.
+                                    <ul>
+                                        <li>"MRN": A unique identifier for the patient's case provided by the referring organization.</li>
+                                        <li>"Patient Name": The name of the patient in the format "Last Name, First Name".</li>
+                                        <li>"Status" and “Reason”: The current status of the patient (e.g., "Actively Engaged") and in some cases, the reason that status was assigned (e.g., "Discharged" because the patient “Met Goals”). Standard combinations include:
+                                            <ul>
+                                                <li>"None" and ""</li>
+                                                <li>"Pending Initial Evaluation" and ""</li>
+                                                <li>"Pending Initial Evaluation" and "Needs Attention"</li>
+                                                <li>"Actively Engaged" and ""</li>
+                                                <li>"Actively Engaged" and "Needs Attention"</li>
+                                                <li>"Discharged" and "Met Goals"</li>
+                                                <li>"Discharged" and "Self Discharged"</li>
+                                                <li>"Discharged" and "Physician Discharged"</li>
+                                                <li>"Discharged" and "Needs Attention"</li>
+                                                <li>"Closed" and "No Response"</li>
+                                                <li>"Closed" and "Lost Benefits"</li>
+                                                <li>"Closed" and "Decline in Health Status"</li>
+                                                <li>"Closed" and "Needs Attention"</li>
+                                            </ul>
+                                        </li>
+                                        <li>“Notes”: Optional additional information entered by the clinician. This is typically used when patients have a “Reason” value of “Needs Attention”, but may be entered for any “Status”/”Reason” combination.</li>
+                                        <li>"Weekly Completed Sessions": The number of sessions completed by the patient in the current week.</li>
+                                        <li>"Weekly Active Days": The number of active days for the patient in the current week.</li>
+                                        <li>"Weekly Completed Activities": The number of activities completed by the patient in the current week.</li>
+                                        <li>"Initial Pain": The patient's initial pain score.</li>
+                                        <li>"Initial Pain Date": The date when the initial pain score was recorded in the format "YYYY-MM-DD".</li>
+                                        <li>"Current Pain": The patient's current pain score.</li>
+                                        <li>"Current Pain Date": The date when the current pain score was recorded in the format "YYYY-MM-DD".</li>
+                                        <li>"Primary Clinician": The name of the primary clinician assigned to the patient in the format "Last Name, First Name".</li>
+                                        <li>"Evaluation Date": The date when the patient's evaluation was conducted in the format "YYYY-MM-DD".</li>
+                                        <li>"Total Sessions": The total number of sessions completed by the patient to date.</li>
+                                        <li>"Total Active Days": The total number of active days for the patient to date.</li>
+                                        <li>"Total Activities": The total number of activities completed by the patient to date.</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            
+
+                    </section>
+                    <section id="monthly-status">
+                        <h3>Monthly Status</h3>
+                        <p>Summary reports generated on a monthly basis, providing an overarching view of the progress
+                            and status changes over the month.</p>
+                    </section>
+                </section>
+            </section>
+            <section id="security-and-compliance">
+                <h1>Security and Compliance</h1>
+                <p>Detailed explanation of how data handling and transmission comply with HIPAA regulations through the
+                    BAA with IncludeHealth.</p>
+            </section>
+            <section id="error-handling">
+                <h1>Error Handling</h1>
+                <p>Procedures and protocols for identifying, logging, and correcting data submission errors.</p>
+            </section>
+            <section id="section3">
+                <h1>API</h1>
+                <p>Content for Section 3...</p>
+            </section>
+        </main>
+    </div>
+</body>
+
+</html>

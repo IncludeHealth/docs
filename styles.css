@@ -1,0 +1,129 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+#container {
+  display: flex;
+}
+
+#sidebar {
+  min-width: 200px; /* Minimum width, adjust as needed */
+  background-color: #f4f4f4;
+  padding: 20px;
+  height: 100vh; /* Full height */
+  overflow-y: auto; /* Enable scrolling if needed */
+  white-space: nowrap; /* Prevents text wrapping */
+}
+
+#sidebar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+#sidebar ul ul {
+  padding-left: 20px; /* Increased indentation for each sub-level */
+}
+
+#sidebar h1 {
+  font-size: 18px; /* Adjust as necessary */
+  color: #333; /* Dark grey instead of blue */
+}
+
+#sidebar h2 {
+  font-size: 16px;
+  color: #555; /* Slightly lighter grey */
+  padding-left: 10px; /* Additional indentation for H2 */
+}
+
+#sidebar h3 {
+  font-size: 14px;
+  color: #777; /* Even lighter grey */
+  padding-left: 20px; /* Additional indentation for H3 */
+}
+
+#sidebar a {
+  text-decoration: none;
+  color: black;
+  display: block;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+#sidebar a:hover {
+  background-color: #6290c8;
+  color: white;
+}
+
+#content {
+  flex-grow: 1;
+  padding: 20px;
+  background-color: #fff;
+}
+
+#content h1 {
+  font-size: 24px; /* Size for main section headers */
+  color: #000; /* Black color for text */
+  padding-left: 0px; /* No indentation */
+}
+
+#content h2 {
+  font-size: 20px; /* Smaller size for subsection headers */
+  color: #000; /* Black color for text */
+  padding-left: 0px; /* No indentation */
+}
+
+#content h3 {
+  font-size: 16px; /* Even smaller size for sub-subsection headers */
+  color: #000; /* Black color for text */
+  padding-left: 0px; /* No indentation */
+}
+
+header {
+  background-color: #011638; /* Dark blue, matching your brand color */
+  color: white;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+}
+
+#header-content {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+#logo {
+  width: 50px; /* Adjust size as needed */
+  height: auto;
+  margin-right: 10px;
+}
+
+header span {
+  font-size: 20px;
+}
+
+pre, code {
+  background-color: #f4f4f4;  /* Light grey background */
+  border: 1px solid #ccc;  /* Grey border */
+  padding: 15px;  /* Padding around the text */
+  overflow: auto;  /* Adds a scrollbar if necessary */
+  margin: 20px 0;
+  text-align: left;  /* Ensures text is left-aligned */
+  display: block;
+  width: 100%;  /* Ensures the block takes full width */
+  white-space: pre;  /* Preserves spaces and line breaks */
+  font-family: 'Courier New', Courier, monospace;  /* Monospace font for better readability */
+  color: #2a2a2a;  /* Dark grey text color */
+}
+
+/* Specific reset for code inside pre to avoid inheritance issues */
+code {
+  all: unset;
+  white-space: pre;
+  font-family: 'Courier New', Courier, monospace;
+  color: #2a2a2a;
+  text-align: left;
+  display: block;
+}
