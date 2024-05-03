@@ -90,6 +90,14 @@ body, html {
   padding-left: 0px; /* No indentation */
 }
 
+:target:before {
+  content: "";
+  display: block;
+  height: 60px; /* Same as your header height */
+  margin-top: -60px; /* Negative value of the same height */
+  visibility: hidden;
+}
+
 /* Adjusting header to ensure it doesn't overlap content inappropriately */
 header {
   position: fixed;
