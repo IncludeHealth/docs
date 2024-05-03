@@ -1,728 +1,156 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>sFTP / CSV Documentation</title><style>
-/* cspell:disable-file */
-/* webkit printing magic: print all background colors */
-html {
-	-webkit-print-color-adjust: exact;
-}
-* {
-	box-sizing: border-box;
-	-webkit-print-color-adjust: exact;
-}
-
-html,
-body {
-	margin: 0;
-	padding: 0;
-}
-@media only screen {
-	body {
-		margin: 2em auto;
-		max-width: 900px;
-		color: rgb(55, 53, 47);
-	}
-}
-
-body {
-	line-height: 1.5;
-	white-space: pre-wrap;
-}
-
-a,
-a.visited {
-	color: inherit;
-	text-decoration: underline;
-}
-
-.pdf-relative-link-path {
-	font-size: 80%;
-	color: #444;
-}
-
-h1,
-h2,
-h3 {
-	letter-spacing: -0.01em;
-	line-height: 1.2;
-	font-weight: 600;
-	margin-bottom: 0;
-}
-
-.page-title {
-	font-size: 2.5rem;
-	font-weight: 700;
-	margin-top: 0;
-	margin-bottom: 0.75em;
-}
-
-h1 {
-	font-size: 1.875rem;
-	margin-top: 1.875rem;
-}
-
-h2 {
-	font-size: 1.5rem;
-	margin-top: 1.5rem;
-}
-
-h3 {
-	font-size: 1.25rem;
-	margin-top: 1.25rem;
-}
-
-.source {
-	border: 1px solid #ddd;
-	border-radius: 3px;
-	padding: 1.5em;
-	word-break: break-all;
-}
-
-.callout {
-	border-radius: 3px;
-	padding: 1rem;
-}
-
-figure {
-	margin: 1.25em 0;
-	page-break-inside: avoid;
-}
-
-figcaption {
-	opacity: 0.5;
-	font-size: 85%;
-	margin-top: 0.5em;
-}
-
-mark {
-	background-color: transparent;
-}
-
-.indented {
-	padding-left: 1.5em;
-}
-
-hr {
-	background: transparent;
-	display: block;
-	width: 100%;
-	height: 1px;
-	visibility: visible;
-	border: none;
-	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
-}
-
-img {
-	max-width: 100%;
-}
-
-@media only print {
-	img {
-		max-height: 100vh;
-		object-fit: contain;
-	}
-}
-
-@page {
-	margin: 1in;
-}
-
-.collection-content {
-	font-size: 0.875rem;
-}
-
-.column-list {
-	display: flex;
-	justify-content: space-between;
-}
-
-.column {
-	padding: 0 1em;
-}
-
-.column:first-child {
-	padding-left: 0;
-}
-
-.column:last-child {
-	padding-right: 0;
-}
-
-.table_of_contents-item {
-	display: block;
-	font-size: 0.875rem;
-	line-height: 1.3;
-	padding: 0.125rem;
-}
-
-.table_of_contents-indent-1 {
-	margin-left: 1.5rem;
-}
-
-.table_of_contents-indent-2 {
-	margin-left: 3rem;
-}
-
-.table_of_contents-indent-3 {
-	margin-left: 4.5rem;
-}
-
-.table_of_contents-link {
-	text-decoration: none;
-	opacity: 0.7;
-	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
-}
-
-table,
-th,
-td {
-	border: 1px solid rgba(55, 53, 47, 0.09);
-	border-collapse: collapse;
-}
-
-table {
-	border-left: none;
-	border-right: none;
-}
-
-th,
-td {
-	font-weight: normal;
-	padding: 0.25em 0.5em;
-	line-height: 1.5;
-	min-height: 1.5em;
-	text-align: left;
-}
-
-th {
-	color: rgba(55, 53, 47, 0.6);
-}
-
-ol,
-ul {
-	margin: 0;
-	margin-block-start: 0.6em;
-	margin-block-end: 0.6em;
-}
-
-li > ol:first-child,
-li > ul:first-child {
-	margin-block-start: 0.6em;
-}
-
-ul > li {
-	list-style: disc;
-}
-
-ul.to-do-list {
-	padding-inline-start: 0;
-}
-
-ul.to-do-list > li {
-	list-style: none;
-}
-
-.to-do-children-checked {
-	text-decoration: line-through;
-	opacity: 0.375;
-}
-
-ul.toggle > li {
-	list-style: none;
-}
-
-ul {
-	padding-inline-start: 1.7em;
-}
-
-ul > li {
-	padding-left: 0.1em;
-}
-
-ol {
-	padding-inline-start: 1.6em;
-}
-
-ol > li {
-	padding-left: 0.2em;
-}
-
-.mono ol {
-	padding-inline-start: 2em;
-}
-
-.mono ol > li {
-	text-indent: -0.4em;
-}
-
-.toggle {
-	padding-inline-start: 0em;
-	list-style-type: none;
-}
-
-/* Indent toggle children */
-.toggle > li > details {
-	padding-left: 1.7em;
-}
-
-.toggle > li > details > summary {
-	margin-left: -1.1em;
-}
-
-.selected-value {
-	display: inline-block;
-	padding: 0 0.5em;
-	background: rgba(206, 205, 202, 0.5);
-	border-radius: 3px;
-	margin-right: 0.5em;
-	margin-top: 0.3em;
-	margin-bottom: 0.3em;
-	white-space: nowrap;
-}
-
-.collection-title {
-	display: inline-block;
-	margin-right: 1em;
-}
-
-.page-description {
-    margin-bottom: 2em;
-}
-
-.simple-table {
-	margin-top: 1em;
-	font-size: 0.875rem;
-	empty-cells: show;
-}
-.simple-table td {
-	height: 29px;
-	min-width: 120px;
-}
-
-.simple-table th {
-	height: 29px;
-	min-width: 120px;
-}
-
-.simple-table-header-color {
-	background: rgb(247, 246, 243);
-	color: black;
-}
-.simple-table-header {
-	font-weight: 500;
-}
-
-time {
-	opacity: 0.5;
-}
-
-.icon {
-	display: inline-block;
-	max-width: 1.2em;
-	max-height: 1.2em;
-	text-decoration: none;
-	vertical-align: text-bottom;
-	margin-right: 0.5em;
-}
-
-img.icon {
-	border-radius: 3px;
-}
-
-.user-icon {
-	width: 1.5em;
-	height: 1.5em;
-	border-radius: 100%;
-	margin-right: 0.5rem;
-}
-
-.user-icon-inner {
-	font-size: 0.8em;
-}
-
-.text-icon {
-	border: 1px solid #000;
-	text-align: center;
-}
-
-.page-cover-image {
-	display: block;
-	object-fit: cover;
-	width: 100%;
-	max-height: 30vh;
-}
-
-.page-header-icon {
-	font-size: 3rem;
-	margin-bottom: 1rem;
-}
-
-.page-header-icon-with-cover {
-	margin-top: -0.72em;
-	margin-left: 0.07em;
-}
-
-.page-header-icon img {
-	border-radius: 3px;
-}
-
-.link-to-page {
-	margin: 1em 0;
-	padding: 0;
-	border: none;
-	font-weight: 500;
-}
-
-p > .user {
-	opacity: 0.5;
-}
-
-td > .user,
-td > time {
-	white-space: nowrap;
-}
-
-input[type="checkbox"] {
-	transform: scale(1.5);
-	margin-right: 0.6em;
-	vertical-align: middle;
-}
-
-p {
-	margin-top: 0.5em;
-	margin-bottom: 0.5em;
-}
-
-.image {
-	border: none;
-	margin: 1.5em 0;
-	padding: 0;
-	border-radius: 0;
-	text-align: center;
-}
-
-.code,
-code {
-	background: rgba(135, 131, 120, 0.15);
-	border-radius: 3px;
-	padding: 0.2em 0.4em;
-	border-radius: 3px;
-	font-size: 85%;
-	tab-size: 2;
-}
-
-code {
-	color: #eb5757;
-}
-
-.code {
-	padding: 1.5em 1em;
-}
-
-.code-wrap {
-	white-space: pre-wrap;
-	word-break: break-all;
-}
-
-.code > code {
-	background: none;
-	padding: 0;
-	font-size: 100%;
-	color: inherit;
-}
-
-blockquote {
-	font-size: 1.25em;
-	margin: 1em 0;
-	padding-left: 1em;
-	border-left: 3px solid rgb(55, 53, 47);
-}
-
-.bookmark {
-	text-decoration: none;
-	max-height: 8em;
-	padding: 0;
-	display: flex;
-	width: 100%;
-	align-items: stretch;
-}
-
-.bookmark-title {
-	font-size: 0.85em;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	height: 1.75em;
-	white-space: nowrap;
-}
-
-.bookmark-text {
-	display: flex;
-	flex-direction: column;
-}
-
-.bookmark-info {
-	flex: 4 1 180px;
-	padding: 12px 14px 14px;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-}
-
-.bookmark-image {
-	width: 33%;
-	flex: 1 1 180px;
-	display: block;
-	position: relative;
-	object-fit: cover;
-	border-radius: 1px;
-}
-
-.bookmark-description {
-	color: rgba(55, 53, 47, 0.6);
-	font-size: 0.75em;
-	overflow: hidden;
-	max-height: 4.5em;
-	word-break: break-word;
-}
-
-.bookmark-href {
-	font-size: 0.75em;
-	margin-top: 0.25em;
-}
-
-.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
-.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
-.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
-.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
-.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
-.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
-.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
-.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
-.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
-.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
-.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
-.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
-.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
-.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
-.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
-.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
-.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
-.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
-.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
-.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
-.highlight-default {
-	color: rgba(55, 53, 47, 1);
-}
-.highlight-gray {
-	color: rgba(120, 119, 116, 1);
-	fill: rgba(120, 119, 116, 1);
-}
-.highlight-brown {
-	color: rgba(159, 107, 83, 1);
-	fill: rgba(159, 107, 83, 1);
-}
-.highlight-orange {
-	color: rgba(217, 115, 13, 1);
-	fill: rgba(217, 115, 13, 1);
-}
-.highlight-yellow {
-	color: rgba(203, 145, 47, 1);
-	fill: rgba(203, 145, 47, 1);
-}
-.highlight-teal {
-	color: rgba(68, 131, 97, 1);
-	fill: rgba(68, 131, 97, 1);
-}
-.highlight-blue {
-	color: rgba(51, 126, 169, 1);
-	fill: rgba(51, 126, 169, 1);
-}
-.highlight-purple {
-	color: rgba(144, 101, 176, 1);
-	fill: rgba(144, 101, 176, 1);
-}
-.highlight-pink {
-	color: rgba(193, 76, 138, 1);
-	fill: rgba(193, 76, 138, 1);
-}
-.highlight-red {
-	color: rgba(212, 76, 71, 1);
-	fill: rgba(212, 76, 71, 1);
-}
-.highlight-gray_background {
-	background: rgba(241, 241, 239, 1);
-}
-.highlight-brown_background {
-	background: rgba(244, 238, 238, 1);
-}
-.highlight-orange_background {
-	background: rgba(251, 236, 221, 1);
-}
-.highlight-yellow_background {
-	background: rgba(251, 243, 219, 1);
-}
-.highlight-teal_background {
-	background: rgba(237, 243, 236, 1);
-}
-.highlight-blue_background {
-	background: rgba(231, 243, 248, 1);
-}
-.highlight-purple_background {
-	background: rgba(244, 240, 247, 0.8);
-}
-.highlight-pink_background {
-	background: rgba(249, 238, 243, 0.8);
-}
-.highlight-red_background {
-	background: rgba(253, 235, 236, 1);
-}
-.block-color-default {
-	color: inherit;
-	fill: inherit;
-}
-.block-color-gray {
-	color: rgba(120, 119, 116, 1);
-	fill: rgba(120, 119, 116, 1);
-}
-.block-color-brown {
-	color: rgba(159, 107, 83, 1);
-	fill: rgba(159, 107, 83, 1);
-}
-.block-color-orange {
-	color: rgba(217, 115, 13, 1);
-	fill: rgba(217, 115, 13, 1);
-}
-.block-color-yellow {
-	color: rgba(203, 145, 47, 1);
-	fill: rgba(203, 145, 47, 1);
-}
-.block-color-teal {
-	color: rgba(68, 131, 97, 1);
-	fill: rgba(68, 131, 97, 1);
-}
-.block-color-blue {
-	color: rgba(51, 126, 169, 1);
-	fill: rgba(51, 126, 169, 1);
-}
-.block-color-purple {
-	color: rgba(144, 101, 176, 1);
-	fill: rgba(144, 101, 176, 1);
-}
-.block-color-pink {
-	color: rgba(193, 76, 138, 1);
-	fill: rgba(193, 76, 138, 1);
-}
-.block-color-red {
-	color: rgba(212, 76, 71, 1);
-	fill: rgba(212, 76, 71, 1);
-}
-.block-color-gray_background {
-	background: rgba(241, 241, 239, 1);
-}
-.block-color-brown_background {
-	background: rgba(244, 238, 238, 1);
-}
-.block-color-orange_background {
-	background: rgba(251, 236, 221, 1);
-}
-.block-color-yellow_background {
-	background: rgba(251, 243, 219, 1);
-}
-.block-color-teal_background {
-	background: rgba(237, 243, 236, 1);
-}
-.block-color-blue_background {
-	background: rgba(231, 243, 248, 1);
-}
-.block-color-purple_background {
-	background: rgba(244, 240, 247, 0.8);
-}
-.block-color-pink_background {
-	background: rgba(249, 238, 243, 0.8);
-}
-.block-color-red_background {
-	background: rgba(253, 235, 236, 1);
-}
-.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
-.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
-.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
-.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
-.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
-.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
-.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
-.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
-.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
-.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
-.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
-.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
-.select-value-color-pageGlass { background-color: undefined; }
-.select-value-color-washGlass { background-color: undefined; }
-
-.checkbox {
-	display: inline-flex;
-	vertical-align: text-bottom;
-	width: 16;
-	height: 16;
-	background-size: 16px;
-	margin-left: 2px;
-	margin-right: 5px;
-}
-
-.checkbox-on {
-	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
-}
-
-.checkbox-off {
-	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
-}
-	
-</style></head><body><article id="2bf734d1-e52b-47f0-bab0-d8cd7ef2668b" class="page sans"><header><div class="page-header-icon undefined"><img class="icon" src="https://www.notion.so/icons/table_gray.svg"/></div><h1 class="page-title">sFTP / CSV Documentation</h1><p class="page-description"></p></header><div class="page-body"><div id="5af9dedc-161d-42a9-988f-9cde600d942d" class="column-list"><div id="5606be89-681b-4d0b-b577-a23db80dc242" style="width:37.5%" class="column"><h1 id="abd91900-ecc2-4924-a2a3-db63ce294e98" class="">Contents</h1><nav id="3077534d-aeda-4b4d-b64a-fd60d9e7273d" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#abd91900-ecc2-4924-a2a3-db63ce294e98">Contents</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#948cdf68-27ef-4b66-bcc1-384e4c39a3a9"><strong>Introduction</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#256c7890-9c44-49a8-b0b6-24f857383d0f">sFTP Access</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#bd7de5ed-5faf-43fd-96d6-663cfbbf249e">Folders</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#8b62611a-5856-44f6-962a-8c8186a7cc19">input</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#8f5ccd53-744f-4b8e-aa03-f5c37ec18963">output</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#c3d22727-76dc-42fc-9ae4-d0082a02cedb">errors</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#386b214d-7c02-4d19-883f-243a2d423843"><strong>Data Submission</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#9ab93b32-3810-46b3-b1d1-8ef454ccf81f"><strong>Format</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#aa69b023-0e69-4863-9835-a605220d2f64"><strong>Requirements</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#15d73aa8-7a38-46ff-be93-f93b1e098901">Data Retrieval</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#e9c45003-ce73-4ddc-8d63-9e32f8e5560c">Output Files</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#d854d5ba-cfed-4007-97e3-fc9970511ff1">Weekly Status</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#33c5d940-baa1-4716-8ff5-d888d12315a5">Monthly Status</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#9d5b17a8-7ef5-4f84-8fc2-eb7637e24cc9"><strong>Security and Compliance</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#590b8039-2a8a-41cd-9e58-cbeff9023290"><strong>Error Handling</strong></a></div></nav></div><div id="cb0b114d-4797-4427-abc2-7d984cc04c4b" style="width:62.5%" class="column"><h1 id="948cdf68-27ef-4b66-bcc1-384e4c39a3a9" class=""><strong>Introduction</strong></h1><p id="86733c2e-be78-40d7-95d2-759afdddc38a" class="">This document provides detailed guidelines about the Secure File Transfer Protocol (sFTP) and CSV data handling for IncludeHealth. It is designed to help software developers understand how to prepare and submit client data, including Personal Health Information (PHI), to IncludeHealth in a secure and compliant manner. It also outlines the data submission format, requirements, retrieval, and error handling procedures.</p><p id="108110ea-9bda-44e9-a0c6-f43d7b8aaf1e" class="">
-</p></div></div><p id="f3fdf86f-9d30-4ff6-a33e-deb55a6e0d72" class="">
-</p><h1 id="256c7890-9c44-49a8-b0b6-24f857383d0f" class="">sFTP Access</h1><p id="f4227c91-8002-440b-8217-4e14459fccff" class="">Access to the IncludeHealth sFPT servers are provided in separate documentation along with specific credentials for tenant organizations.  For additional assistance please refer to the <a href="Help%20and%20Support%20ae7c9982337749559dae8ed9486b4174.html">Help and Support</a> documentation.</p><h2 id="bd7de5ed-5faf-43fd-96d6-663cfbbf249e" class="">Folders</h2><p id="857231d7-8d5b-4b89-870d-fae2823d0409" class="">Accessing the FTP server will give access to 3 internal folders.</p><h3 id="8b62611a-5856-44f6-962a-8c8186a7cc19" class="">input</h3><p id="4d36ddd2-1d90-4db6-a5a4-7ea96d620c2f" class="">This is the target location to place files that will be ingested by the import services. </p><h3 id="8f5ccd53-744f-4b8e-aa03-f5c37ec18963" class="">output</h3><p id="8601d934-aae6-4d65-a725-22fe63fd9469" class="">This is the location of all weekly and monthly files the system will write back for pick up by the tenant organization.</p><h3 id="c3d22727-76dc-42fc-9ae4-d0082a02cedb" class="">errors</h3><p id="fb8bfb3f-1fb2-4a45-96f2-ad15b20c06c3" class="">If any errors occur during the import process, a file will be created in this folder containing the patients first and last name along with an error message. </p><h1 id="386b214d-7c02-4d19-883f-243a2d423843" class=""><strong>Data Submission</strong></h1><p id="70f485aa-20ed-44cd-9fd0-778693a532ce" class="">Guidelines for software developers on how to prepare and submit client data to IncludeHealth. Please ensure all data conforms to the structure and standards outlined below. The data includes Personal Health Information (PHI) and is protected under a Business Associate Agreement (BAA) with IncludeHealth.</p><h2 id="9ab93b32-3810-46b3-b1d1-8ef454ccf81f" class=""><strong>Format</strong></h2><p id="74341c82-d122-4192-aebe-4afe8968b5b1" class="">All client data must be submitted in a CSV file with the following required columns:</p><ul id="e653125c-62fe-47ee-b686-0028251bc2f0" class="bulleted-list"><li style="list-style-type:disc"><strong>FirstName</strong>: First name of the patient. (String)</li></ul><ul id="559ff336-49c3-4c30-9bda-62a02ce2aa7e" class="bulleted-list"><li style="list-style-type:disc"><strong>LastName</strong>: Last name of the patient. (String)</li></ul><ul id="ee9d383b-7a3e-4f17-8645-23a19b158e76" class="bulleted-list"><li style="list-style-type:disc"><strong>DateOfBirth</strong>: Date of birth of the patient, formatted as YYYY-MM-DD. (Date)</li></ul><ul id="023a0be8-c5b9-420f-95d0-99afefe6157a" class="bulleted-list"><li style="list-style-type:disc"><strong>Email</strong>: Email address of the patient. (String)</li></ul><ul id="d9ccbf2c-fab0-4f67-8eae-1c84e6059651" class="bulleted-list"><li style="list-style-type:disc"><strong>PhoneNumber</strong>: Contact phone number of the patient, including only the numeric characters, with the +1 US country code assumed. (Numeric)</li></ul><ul id="45f09dac-0a27-47f3-a718-6fc298ca3c9d" class="bulleted-list"><li style="list-style-type:disc"><strong>PatientId</strong>: A unique identifier for the patient. (String or Numeric)</li></ul><ul id="ac46f6bf-9b1a-4759-b237-c60fe72d8445" class="bulleted-list"><li style="list-style-type:disc"><strong>PlanId</strong>: A unique identifier for the patient&#x27;s plan, provided by IncludeHealth. This field is an enumeration related to the required assessment for the patient. If a match cannot be made, the patient will not be added, and this will be noted in a &quot;failed results&quot; CSV file. (String)</li></ul><ul id="cb8b0d24-e77d-47b2-9469-a3a9989a8721" class="bulleted-list"><li style="list-style-type:disc"><strong>StartDate</strong>: Start date for the plan, formatted as YYYY-MM-DD. (Date)</li></ul><ul id="bd5e536e-76b8-4827-8148-15c31745217b" class="bulleted-list"><li style="list-style-type:disc"><strong>Group</strong>: Group or category the patient belongs to. (String)</li></ul><ul id="64c31d1b-6a2c-4cea-8e51-2c3323e9b07a" class="bulleted-list"><li style="list-style-type:disc"><strong>TimezoneId</strong>: Timezone identifier, consistent with the TZ database format. For a complete list of acceptable timezone identifiers, please refer to the <a href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones">List of TZ Database Time Zones</a> on Wikipedia. (String)</li></ul><p id="24367ada-9932-48cb-b9e8-046d17e1bc62" class="">See the sample template for examples of properly formatted CSV Example File below</p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="1e146d84-b1f3-4c1b-83b2-2b28b72fa1d5"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">Template Submission CSV<figure id="d2f78498-80fd-4d90-9c24-22772372ee61"><div class="source"><a href="sFTP%20CSV%20Documentation%202bf734d1e52b47f0bab0d8cd7ef2668b/TemplateCSVSubmission-Example.csv">TemplateCSVSubmission-Example.csv</a></div></figure></div></figure><h2 id="aa69b023-0e69-4863-9835-a605220d2f64" class=""><strong>Requirements</strong></h2><ul id="8a6d2854-fd04-4003-ab49-d86e214a5eea" class="bulleted-list"><li style="list-style-type:disc"><strong>All fields are required</strong>: Each column must be populated with valid data; otherwise, the record will be rejected.</li></ul><ul id="fbf3ccfa-c0e8-4d92-9ef8-69e45e5d7770" class="bulleted-list"><li style="list-style-type:disc"><strong>Date Format</strong>: All dates must follow the YYYY-MM-DD format.</li></ul><ul id="9def0e3d-9cd6-44ff-a10b-b9ff596eece5" class="bulleted-list"><li style="list-style-type:disc"><strong>File Format</strong>: Data must be submitted in CSV format only.</li></ul><ul id="db289b60-8c3a-439b-98f6-433d8eedf2c2" class="bulleted-list"><li style="list-style-type:disc"><strong>Phone Number Format</strong>: Phone numbers must contain only numeric characters. It is assumed that all numbers are prefixed with the +1 US country code.</li></ul><h1 id="15d73aa8-7a38-46ff-be93-f93b1e098901" class="">Data Retrieval</h1><p id="6a6f3654-b3e7-4257-b399-f8cebf3b3bda" class="">Output files and error files will be placed in the appropriate sFTP   for retrieval.</p><h2 id="e9c45003-ce73-4ddc-8d63-9e32f8e5560c" class="">Output Files</h2><h3 id="d854d5ba-cfed-4007-97e3-fc9970511ff1" class="">Weekly Status</h3><p id="a5f4daf9-a4ce-4109-b208-d0ca21c9f4b9" class="">Each week a file will be generated in JSON and xlsx formats and placed in the output folder.   </p><ol type="1" id="ef23a7a1-514b-4976-9768-0f0debf9865d" class="numbered-list" start="1"><li>&quot;Start Date&quot;: Represents the start date of the weekly file process in the format &quot;YYYY-MM-DD&quot;.</li></ol><ol type="1" id="8bba7c03-d28f-4c08-a04d-9099f18cf802" class="numbered-list" start="2"><li>&quot;End Date&quot;: Represents the end date of the weekly file process in the format &quot;YYYY-MM-DD&quot;.</li></ol><ol type="1" id="d402d946-077e-42ee-bb03-fc4d562802df" class="numbered-list" start="3"><li>&quot;Summary&quot;: Contains a summary of referrals and enrollments.<ul id="373cb693-6806-488b-918a-34c29cdcf373" class="bulleted-list"><li style="list-style-type:disc">&quot;Previous Week Referrals&quot;: The number of referrals from the previous week.</li></ul><ul id="c0a78b6f-3438-44c7-95c4-f1a9eaaf9a8e" class="bulleted-list"><li style="list-style-type:disc">&quot;Total Referrals&quot;: The total number of referrals to date.</li></ul><ul id="036089cb-b17e-428c-b7e7-40a905a42206" class="bulleted-list"><li style="list-style-type:disc">&quot;Previous Week Enrollments&quot;: The number of enrollments from the previous week.</li></ul><ul id="7e738c46-364a-4bd0-9ec7-f231735b5347" class="bulleted-list"><li style="list-style-type:disc">&quot;Total Enrollments&quot;: The total number of enrollments to date.</li></ul><ul id="cc2eeb7c-9522-468c-97f7-28455e97ff7d" class="bulleted-list"><li style="list-style-type:disc">&quot;Currently Enrolled&quot;: The number of patients currently enrolled.</li></ul></li></ol><ol type="1" id="9f947856-2c9e-4d80-a979-044f287660ab" class="numbered-list" start="4"><li>&quot;Details&quot;: An array containing detailed information about each patient.<ul id="fdd1466e-fcd7-4d21-83d7-4e35b69284af" class="bulleted-list"><li style="list-style-type:disc">&quot;MRN&quot;: A unique identifier for the patient&#x27;s case provided by the referring organization.</li></ul><ul id="4c09164b-9274-44fd-9349-7595df167d2e" class="bulleted-list"><li style="list-style-type:disc">&quot;Patient Name&quot;: The name of the patient in the format &quot;Last Name, First Name&quot;.</li></ul><ul id="1ad21893-c1b1-49e1-b894-8f3617330155" class="bulleted-list"><li style="list-style-type:disc">&quot;Status&quot;: The current status of the patient (e.g., &quot;Actively Engaged&quot;) additional items are:<ul id="aa870105-a6f8-482d-9548-356a6e808cce" class="bulleted-list"><li style="list-style-type:circle">Declined</li></ul><ul id="b01ff5b7-07f9-43a9-b002-5f4ce4a40bc6" class="bulleted-list"><li style="list-style-type:circle">No Response</li></ul><ul id="833845a6-9ff7-4983-9947-57e4074045f8" class="bulleted-list"><li style="list-style-type:circle">Response - Pending</li></ul><ul id="e10c2135-a231-49c3-b5da-9ed85190d96e" class="bulleted-list"><li style="list-style-type:circle">Scheduled</li></ul><ul id="6deccc5e-fd7f-48f9-a357-fdd8136b7346" class="bulleted-list"><li style="list-style-type:circle">Pending Initial Evaluation</li></ul><ul id="926a4d79-89bc-41ec-b06c-686992dcc2f2" class="bulleted-list"><li style="list-style-type:circle">Evaluation Completed</li></ul><ul id="20b21cf1-8a67-463d-a073-3fb138169eab" class="bulleted-list"><li style="list-style-type:circle">Actively Engaged</li></ul><ul id="9a6b31b0-5e40-4ea2-915f-75549d65c73d" class="bulleted-list"><li style="list-style-type:circle">Cancellation - No Reschedule</li></ul><ul id="e3324d83-78aa-4cd8-856f-500f934ce867" class="bulleted-list"><li style="list-style-type:circle">Discharged</li></ul></li></ul><ul id="fc703c2a-667e-43dd-b50b-c16f00eb1e1d" class="bulleted-list"><li style="list-style-type:disc">&quot;Weekly Completed Sessions&quot;: The number of sessions completed by the patient in the current week.</li></ul><ul id="0c8c53f3-ee3d-4e15-b8c9-041ea225d97d" class="bulleted-list"><li style="list-style-type:disc">&quot;Weekly Active Days&quot;: The number of active days for the patient in the current week.</li></ul><ul id="53c1d97f-f59e-4691-872d-0d087343a9ec" class="bulleted-list"><li style="list-style-type:disc">&quot;Weekly Completed Activities&quot;: The number of activities completed by the patient in the current week.</li></ul><ul id="0f848ec3-6250-4d81-81e7-10a623c90a13" class="bulleted-list"><li style="list-style-type:disc">&quot;Initial Pain&quot;: The patient&#x27;s initial pain score.</li></ul><ul id="12ad0f23-bad7-4f8f-ae32-026fa245338a" class="bulleted-list"><li style="list-style-type:disc">&quot;Initial Pain Date&quot;: The date when the initial pain score was recorded in the format &quot;YYYY-MM-DD&quot;.</li></ul><ul id="894a4f7f-97ca-4a7b-8eb6-82bc9d3eda51" class="bulleted-list"><li style="list-style-type:disc">&quot;Current Pain&quot;: The patient&#x27;s current pain score.</li></ul><ul id="f60379a7-baa8-43fe-bac8-5e3d9e1c5c15" class="bulleted-list"><li style="list-style-type:disc">&quot;Current Pain Date&quot;: The date when the current pain score was recorded in the format &quot;YYYY-MM-DD&quot;.</li></ul><ul id="87694b49-1d56-4c6c-a1ac-1f27aa756224" class="bulleted-list"><li style="list-style-type:disc">&quot;Primary Clinician&quot;: The name of the primary clinician assigned to the patient in the format &quot;Last Name, First Name&quot;.</li></ul><ul id="42abc2a7-87ce-41ff-b0d8-caf775b0a8c1" class="bulleted-list"><li style="list-style-type:disc">&quot;Evaluation Date&quot;: The date when the patient&#x27;s evaluation was conducted in the format &quot;YYYY-MM-DD&quot;.</li></ul><ul id="31d1a071-77f3-4ca2-af0f-8dccfff6709f" class="bulleted-list"><li style="list-style-type:disc">&quot;Total Sessions&quot;: The total number of sessions completed by the patient to date.</li></ul><ul id="f58f1cfa-74bb-4c3a-8c8f-4d4dd3a9910d" class="bulleted-list"><li style="list-style-type:disc">&quot;Total Active Days&quot;: The total number of active days for the patient to date.</li></ul><ul id="cc8b8e27-c65f-4774-b331-5875ac454371" class="bulleted-list"><li style="list-style-type:disc">&quot;Total Activities&quot;: The total number of activities completed by the patient to date.</li></ul></li></ol><p id="bb9a3387-6bfd-4f25-914d-5ab4ac91f937" class="">This JSON output provides a structured summary of the weekly file process, including overall referral and enrollment statistics, as well as detailed information about each patient&#x27;s engagement, pain scores, primary clinician, and progress metrics.</p><p id="9af3f824-670c-4c68-a3a0-0c407917d0c8" class="">The weekly status file is available in JSON format</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="da7ac38d-aa1d-42f1-9982-c6cdaa107207" class="code"><code class="language-JSON">{
-        &quot;Start Date&quot;: &quot;2024-04-22&quot;,
-        &quot;End Date&quot;: &quot;2024-04-28&quot;,
-        &quot;Summary&quot;:
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>IncludeHealth Docs</title>
+</head><body>
+<h1 id="sftp-csv-documentation">sFTP / CSV Documentation</h1>
+<h1 id="contents">Contents</h1>
+<h1 id="-introduction-"><strong>Introduction</strong></h1>
+<p>This document provides detailed guidelines about the Secure File Transfer Protocol (sFTP) and CSV data handling for IncludeHealth. It is designed to help software developers understand how to prepare and submit client data, including Personal Health Information (PHI), to IncludeHealth in a secure and compliant manner. It also outlines the data submission format, requirements, retrieval, and error handling procedures.</p>
+<h1 id="sftp-access">sFTP Access</h1>
+<p>Access to the IncludeHealth sFPT servers are provided in separate documentation along with specific credentials for tenant organizations.  For additional assistance please refer to the <a href="Help%20and%20Support%20ae7c9982337749559dae8ed9486b4174.md">Help and Support</a> documentation.</p>
+<h2 id="folders">Folders</h2>
+<p>Accessing the FTP server will give access to 3 internal folders.</p>
+<h3 id="input">input</h3>
+<p>This is the target location to place files that will be ingested by the import services. </p>
+<h3 id="output">output</h3>
+<p>This is the location of all weekly and monthly files the system will write back for pick up by the tenant organization.</p>
+<h3 id="errors">errors</h3>
+<p>If any errors occur during the import process, a file will be created in this folder containing the patients first and last name along with an error message. </p>
+<h1 id="-data-submission-"><strong>Data Submission</strong></h1>
+<p>Guidelines for software developers on how to prepare and submit client data to IncludeHealth. Please ensure all data conforms to the structure and standards outlined below. The data includes Personal Health Information (PHI) and is protected under a Business Associate Agreement (BAA) with IncludeHealth.</p>
+<h2 id="-format-"><strong>Format</strong></h2>
+<p>All client data must be submitted in a CSV file with the following required columns:</p>
+<ul>
+<li><strong>FirstName</strong>: First name of the patient. (String)</li>
+<li><strong>LastName</strong>: Last name of the patient. (String)</li>
+<li><strong>DateOfBirth</strong>: Date of birth of the patient, formatted as YYYY-MM-DD. (Date)</li>
+<li><strong>Email</strong>: Email address of the patient. (String)</li>
+<li><strong>PhoneNumber</strong>: Contact phone number of the patient, including only the numeric characters, with the +1 US country code assumed. (Numeric)</li>
+<li><strong>PatientId</strong>: A unique identifier for the patient. (String or Numeric)</li>
+<li><strong>PlanId</strong>: A unique identifier for the patient&#39;s plan, provided by IncludeHealth. This field is an enumeration related to the required assessment for the patient. If a match cannot be made, the patient will not be added, and this will be noted in a &quot;failed results&quot; CSV file. (String)</li>
+<li><strong>StartDate</strong>: Start date for the plan, formatted as YYYY-MM-DD. (Date)</li>
+<li><strong>Group</strong>: Group or category the patient belongs to. (String)</li>
+<li><strong>TimezoneId</strong>: Timezone identifier, consistent with the TZ database format. For a complete list of acceptable timezone identifiers, please refer to the <a href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones">List of TZ Database Time Zones</a> on Wikipedia. (String)</li>
+</ul>
+<p>See the sample template for examples of properly formatted CSV Example File below</p>
+<aside>
+💡 Template Submission CSV
+
+<a href="TemplateCSVSubmission-Example.csv">TemplateCSVSubmission-Example.csv</a>
+
+</aside>
+
+<h2 id="-requirements-"><strong>Requirements</strong></h2>
+<ul>
+<li><strong>All fields are required</strong>: Each column must be populated with valid data; otherwise, the record will be rejected.</li>
+<li><strong>Date Format</strong>: All dates must follow the YYYY-MM-DD format.</li>
+<li><strong>File Format</strong>: Data must be submitted in CSV format only.</li>
+<li><strong>Phone Number Format</strong>: Phone numbers must contain only numeric characters. It is assumed that all numbers are prefixed with the +1 US country code.</li>
+</ul>
+<h1 id="data-retrieval">Data Retrieval</h1>
+<p>Output files and error files will be placed in the appropriate sFTP <a href="sFTP%20CSV%20Documentation%202bf734d1e52b47f0bab0d8cd7ef2668b.md">Folders</a>  for retrieval.</p>
+<h2 id="output-files">Output Files</h2>
+<h3 id="weekly-status">Weekly Status</h3>
+<p>Each week a file will be generated in JSON and xlsx formats and placed in the output folder.   </p>
+<ol>
+<li>&quot;Start Date&quot;: Represents the start date of the weekly file process in the format &quot;YYYY-MM-DD&quot;.</li>
+<li>&quot;End Date&quot;: Represents the end date of the weekly file process in the format &quot;YYYY-MM-DD&quot;.</li>
+<li>&quot;Summary&quot;: Contains a summary of referrals and enrollments.<ul>
+<li>&quot;Previous Week Referrals&quot;: The number of referrals from the previous week.</li>
+<li>&quot;Total Referrals&quot;: The total number of referrals to date.</li>
+<li>&quot;Previous Week Enrollments&quot;: The number of enrollments from the previous week.</li>
+<li>&quot;Total Enrollments&quot;: The total number of enrollments to date.</li>
+<li>&quot;Currently Enrolled&quot;: The number of patients currently enrolled.</li>
+</ul>
+</li>
+<li>&quot;Details&quot;: An array containing detailed information about each patient.<ul>
+<li>&quot;MRN&quot;: A unique identifier for the patient&#39;s case provided by the referring organization.</li>
+<li>&quot;Patient Name&quot;: The name of the patient in the format &quot;Last Name, First Name&quot;.</li>
+<li>&quot;Status&quot;: The current status of the patient (e.g., &quot;Actively Engaged&quot;) additional items are:<ul>
+<li>Declined</li>
+<li>No Response</li>
+<li>Response - Pending</li>
+<li>Scheduled</li>
+<li>Pending Initial Evaluation</li>
+<li>Evaluation Completed</li>
+<li>Actively Engaged</li>
+<li>Cancellation - No Reschedule</li>
+<li>Discharged</li>
+</ul>
+</li>
+<li>&quot;Weekly Completed Sessions&quot;: The number of sessions completed by the patient in the current week.</li>
+<li>&quot;Weekly Active Days&quot;: The number of active days for the patient in the current week.</li>
+<li>&quot;Weekly Completed Activities&quot;: The number of activities completed by the patient in the current week.</li>
+<li>&quot;Initial Pain&quot;: The patient&#39;s initial pain score.</li>
+<li>&quot;Initial Pain Date&quot;: The date when the initial pain score was recorded in the format &quot;YYYY-MM-DD&quot;.</li>
+<li>&quot;Current Pain&quot;: The patient&#39;s current pain score.</li>
+<li>&quot;Current Pain Date&quot;: The date when the current pain score was recorded in the format &quot;YYYY-MM-DD&quot;.</li>
+<li>&quot;Primary Clinician&quot;: The name of the primary clinician assigned to the patient in the format &quot;Last Name, First Name&quot;.</li>
+<li>&quot;Evaluation Date&quot;: The date when the patient&#39;s evaluation was conducted in the format &quot;YYYY-MM-DD&quot;.</li>
+<li>&quot;Total Sessions&quot;: The total number of sessions completed by the patient to date.</li>
+<li>&quot;Total Active Days&quot;: The total number of active days for the patient to date.</li>
+<li>&quot;Total Activities&quot;: The total number of activities completed by the patient to date.</li>
+</ul>
+</li>
+</ol>
+<p>This JSON output provides a structured summary of the weekly file process, including overall referral and enrollment statistics, as well as detailed information about each patient&#39;s engagement, pain scores, primary clinician, and progress metrics.</p>
+<p>The weekly status file is available in JSON format</p>
+<pre><code class="lang-json">{
+        <span class="hljs-attr">"Start Date"</span>: <span class="hljs-string">"2024-04-22"</span>,
+        <span class="hljs-attr">"End Date"</span>: <span class="hljs-string">"2024-04-28"</span>,
+        <span class="hljs-attr">"Summary"</span>:
             {
-                &quot;Previous Week Referrals&quot;: 0,
-                &quot;Total Referrals&quot;: 27,
-                &quot;Previous Week Enrollments&quot;: 2,
-                &quot;Total Enrollments&quot;: 24,
-                &quot;Currently Enrolled&quot;: 11
+                <span class="hljs-attr">"Previous Week Referrals"</span>: <span class="hljs-number">0</span>,
+                <span class="hljs-attr">"Total Referrals"</span>: <span class="hljs-number">27</span>,
+                <span class="hljs-attr">"Previous Week Enrollments"</span>: <span class="hljs-number">2</span>,
+                <span class="hljs-attr">"Total Enrollments"</span>: <span class="hljs-number">24</span>,
+                <span class="hljs-attr">"Currently Enrolled"</span>: <span class="hljs-number">11</span>
             },
-        &quot;Details&quot;: [
+        <span class="hljs-attr">"Details"</span>: [
             {
-                &quot;MRN&quot;: &quot;ab32bdc2-c53c-42e8-9e0d-8c2c8fc8cf79&quot;,
-                &quot;Patient Name&quot;: &quot;Wilson, Bob&quot;,
-                &quot;Status&quot;: &quot;Actively Engaged&quot;,
-                &quot;Weekly Completed Sessions&quot;: 4,
-                &quot;Weekly Active Days&quot;: 4,
-                &quot;Weekly Completed Activities&quot;: 48,
-                &quot;Initial Pain&quot;: 4,
-                &quot;Initial Pain Date&quot;: &quot;2024-02-04&quot;,
-                &quot;Current Pain&quot;: 4,
-                &quot;Current Pain Date&quot;: &quot;2024-04-19&quot;,
-                &quot;Primary Clinician&quot;: &quot;Papavasiliou, Thanos&quot;,
-                &quot;Evaluation Date&quot;: &quot;2024-02-01&quot;,
-                &quot;Total Sessions&quot;: 64,
-                &quot;Total Active Days&quot;: 56,
-                &quot;Total Activities&quot;: 827
+                <span class="hljs-attr">"MRN"</span>: <span class="hljs-string">"ab32bdc2-c53c-42e8-9e0d-8c2c8fc8cf79"</span>,
+                <span class="hljs-attr">"Patient Name"</span>: <span class="hljs-string">"Wilson, Bob"</span>,
+                <span class="hljs-attr">"Status"</span>: <span class="hljs-string">"Actively Engaged"</span>,
+                <span class="hljs-attr">"Weekly Completed Sessions"</span>: <span class="hljs-number">4</span>,
+                <span class="hljs-attr">"Weekly Active Days"</span>: <span class="hljs-number">4</span>,
+                <span class="hljs-attr">"Weekly Completed Activities"</span>: <span class="hljs-number">48</span>,
+                <span class="hljs-attr">"Initial Pain"</span>: <span class="hljs-number">4</span>,
+                <span class="hljs-attr">"Initial Pain Date"</span>: <span class="hljs-string">"2024-02-04"</span>,
+                <span class="hljs-attr">"Current Pain"</span>: <span class="hljs-number">4</span>,
+                <span class="hljs-attr">"Current Pain Date"</span>: <span class="hljs-string">"2024-04-19"</span>,
+                <span class="hljs-attr">"Primary Clinician"</span>: <span class="hljs-string">"Papavasiliou, Thanos"</span>,
+                <span class="hljs-attr">"Evaluation Date"</span>: <span class="hljs-string">"2024-02-01"</span>,
+                <span class="hljs-attr">"Total Sessions"</span>: <span class="hljs-number">64</span>,
+                <span class="hljs-attr">"Total Active Days"</span>: <span class="hljs-number">56</span>,
+                <span class="hljs-attr">"Total Activities"</span>: <span class="hljs-number">827</span>
             },
             {
-                &quot;MRN&quot;: &quot;e6fc155f-38c2-4123-9803-f6bb9b3c2a3a&quot;,
-                &quot;Patient Name&quot;: &quot;Skipworth, Bob&quot;,
-                &quot;Status&quot;: &quot;Actively Engaged&quot;,
-                &quot;Weekly Completed Sessions&quot;: 1,
-                &quot;Weekly Active Days&quot;: 1,
-                &quot;Weekly Completed Activities&quot;: 1,
-                &quot;Initial Pain&quot;: 4,
-                &quot;Initial Pain Date&quot;: &quot;2024-02-06&quot;,
-                &quot;Current Pain&quot;: 4,
-                &quot;Current Pain Date&quot;: &quot;2024-04-27&quot;,
-                &quot;Primary Clinician&quot;: &quot;Papavasiliou, Thanos&quot;,
-                &quot;Evaluation Date&quot;: &quot;2024-02-05&quot;,
-                &quot;Total Sessions&quot;: 10,
-                &quot;Total Active Days&quot;: 10,
-                &quot;Total Activities&quot;: 38
+                <span class="hljs-attr">"MRN"</span>: <span class="hljs-string">"e6fc155f-38c2-4123-9803-f6bb9b3c2a3a"</span>,
+                <span class="hljs-attr">"Patient Name"</span>: <span class="hljs-string">"Skipworth, Bob"</span>,
+                <span class="hljs-attr">"Status"</span>: <span class="hljs-string">"Actively Engaged"</span>,
+                <span class="hljs-attr">"Weekly Completed Sessions"</span>: <span class="hljs-number">1</span>,
+                <span class="hljs-attr">"Weekly Active Days"</span>: <span class="hljs-number">1</span>,
+                <span class="hljs-attr">"Weekly Completed Activities"</span>: <span class="hljs-number">1</span>,
+                <span class="hljs-attr">"Initial Pain"</span>: <span class="hljs-number">4</span>,
+                <span class="hljs-attr">"Initial Pain Date"</span>: <span class="hljs-string">"2024-02-06"</span>,
+                <span class="hljs-attr">"Current Pain"</span>: <span class="hljs-number">4</span>,
+                <span class="hljs-attr">"Current Pain Date"</span>: <span class="hljs-string">"2024-04-27"</span>,
+                <span class="hljs-attr">"Primary Clinician"</span>: <span class="hljs-string">"Papavasiliou, Thanos"</span>,
+                <span class="hljs-attr">"Evaluation Date"</span>: <span class="hljs-string">"2024-02-05"</span>,
+                <span class="hljs-attr">"Total Sessions"</span>: <span class="hljs-number">10</span>,
+                <span class="hljs-attr">"Total Active Days"</span>: <span class="hljs-number">10</span>,
+                <span class="hljs-attr">"Total Activities"</span>: <span class="hljs-number">38</span>
             }
         ]
-    }</code></pre><h3 id="33c5d940-baa1-4716-8ff5-d888d12315a5" class="">Monthly Status</h3><p id="040a5fd6-2511-45fb-a5df-c06a16cc1ef9" class="">
-</p><h1 id="9d5b17a8-7ef5-4f84-8fc2-eb7637e24cc9" class=""><strong>Security and Compliance</strong></h1><ul id="d2ac9722-8ace-4c47-a0e8-6269c2669018" class="bulleted-list"><li style="list-style-type:disc"><strong>Handling PHI</strong>: As the data includes PHI, all handling and transmission must comply with the stipulated BAA terms.</li></ul><ul id="ff788c21-f263-48d6-810e-2d571f9521a3" class="bulleted-list"><li style="list-style-type:disc"><strong>Data Transmission</strong>: Upload all CSV files to the IncludeHealth sFTP server. Credentials and access details will be provided separately.</li></ul><h1 id="590b8039-2a8a-41cd-9e58-cbeff9023290" class=""><strong>Error Handling</strong></h1><ul id="37783c89-8c6e-4e6f-9623-05be80732168" class="bulleted-list"><li style="list-style-type:disc"><strong>Failed Results</strong>: If a patient&#x27;s data cannot be matched to a provided PlanId, it will be flagged in a &quot;failed results&quot; CSV file which will also be available on the sFTP server.</li></ul><p id="d0c037f2-a21d-4fb8-a343-924f882aa6ad" class="">
-</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
+    }
+</code></pre>
+<h3 id="monthly-status">Monthly Status</h3>
+<h1 id="-security-and-compliance-"><strong>Security and Compliance</strong></h1>
+<ul>
+<li><strong>Handling PHI</strong>: As the data includes PHI, all handling and transmission must comply with the stipulated BAA terms.</li>
+<li><strong>Data Transmission</strong>: Upload all CSV files to the IncludeHealth sFTP server. Credentials and access details will be provided separately.</li>
+</ul>
+<h1 id="-error-handling-"><strong>Error Handling</strong></h1>
+<ul>
+<li><strong>Failed Results</strong>: If a patient&#39;s data cannot be matched to a provided PlanId, it will be flagged in a &quot;failed results&quot; CSV file which will also be available on the sFTP server.</li>
+</ul>
+
+</body></html>
