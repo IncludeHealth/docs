@@ -154,3 +154,22 @@ code {
   text-align: left;
   display: block;
 }
+
+/* Apply to a specific table by adding a class or id if necessary */
+table {
+  width: 100%; /* Ensures the table takes full width of its container */
+}
+
+th {
+  width: 50%; /* Adjust the width as necessary */
+  text-align: left; /* Aligns text to the left in table headers */
+}
+
+/* Example for more specific width adjustments */
+th:first-child {
+  width: 30%; /* First column width */
+}
+
+th:last-child {
+  width: 70%; /* Second column width */
+}
