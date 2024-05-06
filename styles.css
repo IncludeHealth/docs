@@ -2,7 +2,10 @@ body, html {
   height: 100%;
   margin: 0;
   padding: 0;
-  font-family: Arial, sans-serif;
+  font-family: Georgia, 'Times New Roman', Times, serif; /* Makes text easier to read */
+  font-size: 16px; /* Adjust size as needed for readability */
+  line-height: 1.6; /* Provides optimal space between lines */
+  color: #333; /* Soft black reduces eye strain */
   overflow: hidden; /* Hides any overflow to remove the scrollbar */
 }
 
