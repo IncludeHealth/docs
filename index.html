@@ -150,13 +150,15 @@
                             patient. If a match cannot be made, the patient will not be added, and this will be noted in
                             a &quot;failed results&quot; CSV file. (String)</li>
                         <li><strong>StartDate</strong>: Start date for the plan, formatted as YYYY-MM-DD. (Date)</li>
-                        <li><strong>Group</strong>: Group or category the patient belongs to. (String)</li>
+                        <li><strong>ReferringGroup</strong>: A Group or category the patient belongs. (String)</li>
+                        <li><strong>ReferingClinician</strong>: A clinician that requested the referral. (String)</li>
                         <li><strong>TimezoneId</strong>: Timezone identifier, consistent with the TZ database format.
                             For a complete list of acceptable timezone identifiers, please refer to the <a
                                 href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones">List of TZ Database
                                 Time Zones</a> on Wikipedia. (String)</li>
                     </ul>
-                    <p>See the sample template for examples of properly formatted <a href="submission_template.csv"> CSV File</a>
+                    <p>See the sample template for examples of properly formatted <a href="submission_template.csv"> CSV
+                            File</a>
                     </p>
                 </section>
                 <section id="requirements">
@@ -320,79 +322,107 @@
                             referral and enrollment statistics, as well as detailed information about each patient&#39;s
                             engagement, pain scores, primary clinician, and progress metrics.</p>
                         <p>The weekly status file is available in JSON and XLSX formats and both are provided</p>
-                        <p>See the example template<a href="ConsolidatedMonthly.xlsx"> Consolidated Monthly XLSX File</a>
+                        <p>See the example template<a href="ConsolidatedMonthly.xlsx"> Consolidated Monthly XLSX
+                                File</a>
                     </section>
                     <section id="monthly-status">
                         <h3>Monthly Status</h3>
                         <p>Summary reports generated on a monthly basis, providing an overarching view of the progress
                             and status changes over the month.</p>
-                            <h3>Monthly Consolidated Summary</h3>
-                            <p>This report provides information about all current referred patients in the system.</p>
-                            <ul>
-                                <li><strong>ExternalPatientID</strong>: A unique identifier for the patient.</li>
-                                <li><strong>First Name</strong>: The patient's first name.</li>
-                                <li><strong>Last Name</strong>: The patient's last name.</li>
-                                <li><strong>Status</strong>: The current status of the patient's case (e.g., active, discharged).</li>
-                                <li><strong>Body Part</strong>: Specifies the part of the body relevant to the treatment.</li>
-                                <li><strong>DOB (Date of Birth)</strong>: The patient's birth date.</li>
-                                <li><strong>Enrollment Date</strong>: The date the patient was enrolled in the program.</li>
-                                <li><strong>Completed Sessions</strong>: The number of sessions the patient has completed.</li>
-                                <li><strong>Measurement</strong>: Specific measurements related to the body part.</li>
-                                <li><strong>Baseline Date</strong>: The date initial measurements were taken.</li>
-                                <li><strong>Baseline</strong>: The initial measurements recorded.</li>
-                                <li><strong>Latest Date</strong>: The date of the most recent measurement.</li>
-                                <li><strong>Latest</strong>: The most recent measurements taken.</li>
-                                <li><strong>% Change</strong>: The percentage change between the baseline and latest measurements.</li>
-                            </ul>
-                            <h3>Monthly Patient Details</h3>
-                            <p>This report provides detail information about current referred patients in the system.  One file per patient will be created.</p>
-                            <ul>
-                                <li><strong>Patient Information</strong>
-                                    <ul>
-                                        <li><strong>Name:</strong> Full name of the patient.</li>
-                                        <li><strong>ExternalPatientId:</strong> Unique identifier assigned to the patient.</li>
-                                        <li><strong>Email:</strong> Email address of the patient.</li>
-                                        <li><strong>Phone:</strong> Contact phone number of the patient.</li>
-                                        <li><strong>DOB:</strong> Date of birth of the patient.</li>
-                                        <li><strong>Body Part:</strong> The specific body part being treated or monitored.</li>
-                                    </ul>
-                                </li>
-                                <li><strong>Reporting Period</strong>
-                                    <ul>
-                                        <li><strong>Reporting Month:</strong> The month for which the report is generated.</li>
-                                        <li><strong>Episode Start Date:</strong> The starting date of the current treatment episode.</li>
-                                        <li><strong>Episode Status:</strong> Current status of the episode (e.g., Active, Inactive).</li>
-                                        <li><strong>Primary Clinician:</strong> Name of the clinician primarily responsible for the patient.</li>
-                                    </ul>
-                                </li>
-                                <li><strong>Engagement Summary</strong>
-                                    <ul>
-                                        <li><strong>Days of Access (Monthly):</strong> The number of days the patient accessed services in the month.</li>
-                                        <li><strong>Synchronous Visits (Monthly):</strong> The number of real-time visits or interactions within the month.</li>
-                                        <li><strong>Completed Sessions (Monthly):</strong> The number of therapy or treatment sessions completed in the month.</li>
-                                        <li><strong>Completed Activities (Monthly):</strong> The number of specific activities or tasks completed by the patient.</li>
-                                    </ul>
-                                </li>
-                                <li><strong>Surveys</strong>
-                                    <ul>
-                                        <li><strong>Survey Name:</strong> Type of survey (e.g., DASH, Owestry, NPS).</li>
-                                        <li><strong>Classification:</strong> The category of the survey (e.g., Initial, Follow-up).</li>
-                                        <li><strong>Date:</strong> Date on which the survey was conducted.</li>
-                                        <li><strong>Score:</strong> The score or outcome of the survey.</li>
-                                        <li><strong>% From Initial:</strong> Percentage change from the initial survey to the current.</li>
-                                    </ul>
-                                </li>
-                                <li><strong>Functional Tests</strong>
-                                    <ul>
-                                        <li><strong>Test Name:</strong> Type of functional test performed (e.g., Lumbar Flexion, Lumbar Sidebending).</li>
-                                        <li><strong>Classification:</strong> The classification of the test (Initial, Follow-up).</li>
-                                        <li><strong>Date:</strong> Date on which the test was conducted.</li>
-                                        <li><strong>Outcome:</strong> The outcome or result of the test in appropriate units.</li>
-                                        <li><strong>% From Initial:</strong> Percentage change from the initial test to the current measurement.</li>
-                                    </ul>
-                                </li>
-                            </ul> 
-                            <p>See the example template<a href="DetailedPatientMonthly.xlsx"> Detailed Patient Monthly XLSX File</a>
+                        <h3>Monthly Consolidated Summary</h3>
+                        <p>This report provides information about all current referred patients in the system.</p>
+                        <ul>
+                            <li><strong>ExternalPatientID</strong>: A unique identifier for the patient.</li>
+                            <li><strong>First Name</strong>: The patient's first name.</li>
+                            <li><strong>Last Name</strong>: The patient's last name.</li>
+                            <li><strong>Status</strong>: The current status of the patient's case (e.g., active,
+                                discharged).</li>
+                            <li><strong>Body Part</strong>: Specifies the part of the body relevant to the treatment.
+                            </li>
+                            <li><strong>DOB (Date of Birth)</strong>: The patient's birth date.</li>
+                            <li><strong>Enrollment Date</strong>: The date the patient was enrolled in the program.</li>
+                            <li><strong>Completed Sessions</strong>: The number of sessions the patient has completed.
+                            </li>
+                            <li><strong>Measures</strong>: An array containing detailed information about each assessment outcome.
+                                <ul>
+
+                                    <li><strong>Measurement</strong>: Specific measurements related to the body part.
+                                    </li>
+                                    <li><strong>Baseline Date</strong>: The date initial measurements were taken.</li>
+                                    <li><strong>Baseline</strong>: The initial measurements recorded.</li>
+                                    <li><strong>Latest Date</strong>: The date of the most recent measurement.</li>
+                                    <li><strong>Latest</strong>: The most recent measurements taken.</li>
+                                    <li><strong>% Change</strong>: The percentage change between the baseline and latest
+                                        measurements.</li>
+                                </ul>
+                        </ul>
+                        <h3>Monthly Patient Details</h3>
+                        <p>This report provides detail information about current referred patients in the system. One
+                            file per patient will be created.</p>
+                        <ul>
+                            <li><strong>Patient Information</strong>
+                                <ul>
+                                    <li><strong>Name:</strong> Full name of the patient.</li>
+                                    <li><strong>ExternalPatientId:</strong> Unique identifier assigned to the patient.
+                                    </li>
+                                    <li><strong>Email:</strong> Email address of the patient.</li>
+                                    <li><strong>Phone:</strong> Contact phone number of the patient.</li>
+                                    <li><strong>DOB:</strong> Date of birth of the patient.</li>
+                                    <li><strong>Body Part:</strong> The specific body part being treated or monitored.
+                                    </li>
+                                </ul>
+                            </li>
+                            <li><strong>Reporting Period</strong>
+                                <ul>
+                                    <li><strong>Reporting Month:</strong> The month for which the report is generated.
+                                    </li>
+                                    <li><strong>Episode Start Date:</strong> The starting date of the current treatment
+                                        episode.</li>
+                                    <li><strong>Episode Status:</strong> Current status of the episode (e.g., Active,
+                                        Inactive).</li>
+                                    <li><strong>Primary Clinician:</strong> Name of the clinician primarily responsible
+                                        for the patient.</li>
+                                </ul>
+                            </li>
+                            <li><strong>Engagement Summary</strong>
+                                <ul>
+                                    <li><strong>Active Days (Monthly):</strong> The number of days the patient
+                                        accessed services in the month.</li>
+                                    <li><strong>Synchronous Visits (Monthly):</strong> The number of real-time visits or
+                                        interactions within the month.</li>
+                                    <li><strong>Completed Sessions (Monthly):</strong> The number of therapy or
+                                        treatment sessions completed in the month.</li>
+                                    <li><strong>Completed Activities (Monthly):</strong> The number of specific
+                                        activities or tasks completed by the patient.</li>
+                                </ul>
+                            </li>
+                            <li><strong>Surveys</strong>
+                                <ul>
+                                    <li><strong>Survey Name:</strong> Type of survey (e.g., DASH, Owestry, NPS).</li>
+                                    <li><strong>Classification:</strong> The category of the survey (e.g., Initial,
+                                        Follow-up).</li>
+                                    <li><strong>Date:</strong> Date on which the survey was conducted.</li>
+                                    <li><strong>Score:</strong> The score or outcome of the survey.</li>
+                                    <li><strong>% From Initial:</strong> Percentage change from the initial survey to
+                                        the current.</li>
+                                </ul>
+                            </li>
+                            <li><strong>Functional Tests</strong>
+                                <ul>
+                                    <li><strong>Test Name:</strong> Type of functional test performed (e.g., Lumbar
+                                        Flexion, Lumbar Sidebending).</li>
+                                    <li><strong>Classification:</strong> The classification of the test (Initial,
+                                        Follow-up).</li>
+                                    <li><strong>Date:</strong> Date on which the test was conducted.</li>
+                                    <li><strong>Outcome:</strong> The outcome or result of the test in appropriate
+                                        units.</li>
+                                    <li><strong>% From Initial:</strong> Percentage change from the initial test to the
+                                        current measurement.</li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <p>See the example template<a href="DetailedPatientMonthly.xlsx"> Detailed Patient Monthly XLSX
+                                File</a>
                     </section>
                 </section>
             </section>
