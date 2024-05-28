@@ -144,18 +144,22 @@
                         <li><strong>Email</strong>: Email address of the patient. (String)</li>
                         <li><strong>PhoneNumber</strong>: Contact phone number of the patient, including only the
                             numeric characters, with the +1 US country code assumed. (Numeric)</li>
-                        <li><strong>PatientId</strong>: A unique identifier for the patient. (String or Numeric)</li>
+                        <li><strong>ExternalPatientId</strong>: A unique identifier for the patient. (String or Numeric)</li>
                         <li><strong>PlanId</strong>: A unique identifier for the patient&#39;s plan, provided by
                             IncludeHealth. This field is an enumeration related to the required assessment for the
                             patient. If a match cannot be made, the patient will not be added, and this will be noted in
                             a &quot;failed results&quot; CSV file. (String)</li>
                         <li><strong>StartDate</strong>: Start date for the plan, formatted as YYYY-MM-DD. (Date)</li>
                         <li><strong>ReferringGroup</strong>: A Group or category the patient belongs. (String)</li>
-                        <li><strong>ReferingClinician</strong>: A clinician that requested the referral. (String)</li>
+                        <li><strong>ReferringClinician</strong>: A clinician that requested the referral. (String)</li>
                         <li><strong>TimezoneId</strong>: Timezone identifier, consistent with the TZ database format.
                             For a complete list of acceptable timezone identifiers, please refer to the <a
                                 href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones">List of TZ Database
                                 Time Zones</a> on Wikipedia. (String)</li>
+                        <li><strong>BodyPart</strong>: The affected body part that the patient is receiving care for. (String)</li>
+                        <li><strong>Condition</strong>: The condition the patient is receiving care for. (String)</li>
+                        <li><strong>SmsMessagingEnabled</strong>: Flag to opt the client into receiving sms messaging. (Bool)</li>
+                        <li><strong>PlanNotificationType</strong>: The type of notifications the client should receive for the plan (Enum: Virtual_PT, Assessment, None).</li>
                     </ul>
                     <p>See the sample template for examples of properly formatted <a href="submission_template.csv"> CSV
                             File</a>
