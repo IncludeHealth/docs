@@ -698,17 +698,17 @@
       "description" : "The date on which the Plan should end.",
       "format" : "date-time"
     },
-    "startDate" : {
-      "minLength" : 1,
-      "type" : "string",
-      "description" : "The date on which the Plan should start.",
-      "format" : "date-time"
-    },
     "id" : {
       "minLength" : 1,
       "type" : "string",
       "description" : "Identifies the Plan to be used as a template.",
       "format" : "uuid"
+    },
+    "startDate" : {
+      "minLength" : 1,
+      "type" : "string",
+      "description" : "The date on which the Plan should start.",
+      "format" : "date-time"
     }
   }
 };
@@ -721,7 +721,7 @@
   }
 };
             defs["patientPostRequest"] = {
-  "required" : [ "emailAddress", "firstName", "lastName", "patientId", "phoneNumber", "timezone" ],
+  "required" : [ "emailAddress", "externalPatientId", "firstName", "lastName", "phoneNumber", "timezone" ],
   "type" : "object",
   "properties" : {
     "dateOfBirth" : {
@@ -733,15 +733,15 @@
       "minLength" : 1,
       "type" : "string"
     },
+    "externalPatientId" : {
+      "minLength" : 1,
+      "type" : "string"
+    },
     "firstName" : {
       "minLength" : 1,
       "type" : "string"
     },
     "lastName" : {
-      "minLength" : 1,
-      "type" : "string"
-    },
-    "patientId" : {
       "minLength" : 1,
       "type" : "string"
     },
@@ -757,6 +757,9 @@
     },
     "referringGroup" : {
       "type" : "string"
+    },
+    "smsMessagingEnabled" : {
+      "type" : "boolean"
     },
     "surgeryDate" : {
       "type" : "string",
@@ -908,6 +911,10 @@
                     <li data-group="Patient" data-name="getPlanToken" class="">
                       <a href="#api-Patient-getPlanToken">getPlanToken</a>
                     </li>
+                  <li class="nav-header" data-group="Plan"><a href="#api-Plan">API Methods - Plan</a></li>
+                    <li data-group="Plan" data-name="selfReportSession" class="">
+                      <a href="#api-Plan-selfReportSession">selfReportSession</a>
+                    </li>
                   <li class="nav-header" data-group="Session"><a href="#api-Session">API Methods - Session</a></li>
                     <li data-group="Session" data-name="getSessionReport" class="">
                       <a href="#api-Session-getSessionReport">getSessionReport</a>
@@ -973,7 +980,7 @@
 \
 -H "Accept: application/json"\
 -H "Content-Type: application/json"\
-"http://localhost:7071/api/v1/patient?"</code></pre>
+"https://includeprocess-addplannotificationt-669.azurewebsites.net/api/v1/patient?"</code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Patient-addPatient-0-java">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
@@ -1308,7 +1315,7 @@ except ApiException as e:
                         <p class="marked">Adds a new Plan for the specified Patient to the database.</p>
                         <p></p>
                         <br />
-                        <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/api/v1/patient/{patientId}/plan</span></code></pre>
+                        <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/api/v1/patient/{externalPatientId}/plan</span></code></pre>
                         <p>
                           <h3>Usage and SDK Samples</h3>
                         </p>
@@ -1332,7 +1339,7 @@ except ApiException as e:
 \
 -H "Accept: application/json"\
 -H "Content-Type: application/json"\
-"http://localhost:7071/api/v1/patient/{patientId}/plan?"</code></pre>
+"https://includeprocess-addplannotificationt-669.azurewebsites.net/api/v1/patient/{externalPatientId}/plan?"</code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Patient-assignPlan-0-java">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
@@ -1355,10 +1362,10 @@ public class PatientApiExample {
         //function_key.setApiKeyPrefix("Token");
 
         PatientApi apiInstance = new PatientApi();
-        UUID patientId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // UUID | The external system's Id for the the patient.
+        UUID externalPatientId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // UUID | The external system's Id for the the patient.
         PatientPlanPostRequest body = ; // PatientPlanPostRequest | Information required to add a Plan to a Patient
         try {
-            patientPlanPostResponse result = apiInstance.assignPlan(patientId, body);
+            patientPlanPostResponse result = apiInstance.assignPlan(externalPatientId, body);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling PatientApi#assignPlan");
@@ -1375,10 +1382,10 @@ public class PatientApiExample {
 
     public static void main(String[] args) {
         PatientApi apiInstance = new PatientApi();
-        UUID patientId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // UUID | The external system's Id for the the patient.
+        UUID externalPatientId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // UUID | The external system's Id for the the patient.
         PatientPlanPostRequest body = ; // PatientPlanPostRequest | Information required to add a Plan to a Patient
         try {
-            patientPlanPostResponse result = apiInstance.assignPlan(patientId, body);
+            patientPlanPostResponse result = apiInstance.assignPlan(externalPatientId, body);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling PatientApi#assignPlan");
@@ -1397,13 +1404,13 @@ public class PatientApiExample {
 [apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"code"];
 // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 //[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"code"];
-UUID *patientId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // The external system's Id for the the patient.
+UUID *externalPatientId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // The external system's Id for the the patient.
 PatientPlanPostRequest *body = ; // Information required to add a Plan to a Patient (optional)
 
 PatientApi *apiInstance = [[PatientApi alloc] init];
 
 // Assigns a new Plan to the specified patient.
-[apiInstance assignPlanWith:patientId
+[apiInstance assignPlanWith:externalPatientId
     body:body
               completionHandler: ^(patientPlanPostResponse output, NSError* error) {
                             if (output) {
@@ -1427,7 +1434,7 @@ function_key.apiKey = "YOUR API KEY"
 //function_key.apiKeyPrefix['code'] = "Token"
 
 var api = new IncludeHealthApi.PatientApi()
-var patientId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // {{UUID}} The external system's Id for the the patient.
+var externalPatientId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // {{UUID}} The external system's Id for the the patient.
 var opts = { 
   'body':  // {{PatientPlanPostRequest}} Information required to add a Plan to a Patient
 };
@@ -1438,7 +1445,7 @@ var callback = function(error, data, response) {
     console.log('API called successfully. Returned data: ' + data);
   }
 };
-api.assignPlan(patientId, opts, callback);
+api.assignPlan(externalPatientId, opts, callback);
 </code></pre>
                             </div>
 
@@ -1465,13 +1472,13 @@ namespace Example
             // Configuration.Default.ApiKeyPrefix.Add("code", "Bearer");
 
             var apiInstance = new PatientApi();
-            var patientId = new UUID(); // UUID | The external system's Id for the the patient.
+            var externalPatientId = new UUID(); // UUID | The external system's Id for the the patient.
             var body = new PatientPlanPostRequest(); // PatientPlanPostRequest | Information required to add a Plan to a Patient (optional) 
 
             try
             {
                 // Assigns a new Plan to the specified patient.
-                patientPlanPostResponse result = apiInstance.assignPlan(patientId, body);
+                patientPlanPostResponse result = apiInstance.assignPlan(externalPatientId, body);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -1494,11 +1501,11 @@ Swagger\Client\Configuration::getDefaultConfiguration()->setApiKey('code', 'YOUR
 // Swagger\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('code', 'Bearer');
 
 $api_instance = new Swagger\Client\ApiPatientApi();
-$patientId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // UUID | The external system's Id for the the patient.
+$externalPatientId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // UUID | The external system's Id for the the patient.
 $body = ; // PatientPlanPostRequest | Information required to add a Plan to a Patient
 
 try {
-    $result = $api_instance->assignPlan($patientId, $body);
+    $result = $api_instance->assignPlan($externalPatientId, $body);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling PatientApi->assignPlan: ', $e->getMessage(), PHP_EOL;
@@ -1517,11 +1524,11 @@ $WWW::SwaggerClient::Configuration::api_key->{'code'} = 'YOUR_API_KEY';
 #$WWW::SwaggerClient::Configuration::api_key_prefix->{'code'} = "Bearer";
 
 my $api_instance = WWW::SwaggerClient::PatientApi->new();
-my $patientId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; # UUID | The external system's Id for the the patient.
+my $externalPatientId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; # UUID | The external system's Id for the the patient.
 my $body = WWW::SwaggerClient::Object::PatientPlanPostRequest->new(); # PatientPlanPostRequest | Information required to add a Plan to a Patient
 
 eval { 
-    my $result = $api_instance->assignPlan(patientId => $patientId, body => $body);
+    my $result = $api_instance->assignPlan(externalPatientId => $externalPatientId, body => $body);
     print Dumper($result);
 };
 if ($@) {
@@ -1543,12 +1550,12 @@ swagger_client.configuration.api_key['code'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = swagger_client.PatientApi()
-patientId = 38400000-8cf0-11bd-b23e-10b96e4ef00d # UUID | The external system's Id for the the patient.
+externalPatientId = 38400000-8cf0-11bd-b23e-10b96e4ef00d # UUID | The external system's Id for the the patient.
 body =  # PatientPlanPostRequest | Information required to add a Plan to a Patient (optional)
 
 try: 
     # Assigns a new Plan to the specified patient.
-    api_response = api_instance.assign_plan(patientId, body=body)
+    api_response = api_instance.assign_plan(externalPatientId, body=body)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling PatientApi->assignPlan: %s\n" % e)</code></pre>
@@ -1563,11 +1570,11 @@ except ApiException as e:
                                   <th width="150px">Name</th>
                                   <th>Description</th>
                                 </tr>
-                                  <tr><td style="width:150px;">patientId*</td>
+                                  <tr><td style="width:150px;">externalPatientId*</td>
                                   <td>
                                   
                                   
-                                      <div id="d2e199_assignPlan_patientId">
+                                      <div id="d2e199_assignPlan_externalPatientId">
                                           <div class="json-schema-view">
                                               <div class="primitive">
                                                   <span class="type">
@@ -1708,7 +1715,7 @@ except ApiException as e:
                         <p class="marked">Returns an access token that can be used to perform the specified plan.</p>
                         <p></p>
                         <br />
-                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/api/v1/patient/{patientId}/plan/{planId}/token</span></code></pre>
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/api/v1/patient/{externalPatientId}/plan/{planId}/token</span></code></pre>
                         <p>
                           <h3>Usage and SDK Samples</h3>
                         </p>
@@ -1731,7 +1738,7 @@ except ApiException as e:
                            <pre class="prettyprint"><code class="language-bsh">curl -X GET\
 \
 -H "Accept: application/json"\
-"http://localhost:7071/api/v1/patient/{patientId}/plan/{planId}/token?"</code></pre>
+"https://includeprocess-addplannotificationt-669.azurewebsites.net/api/v1/patient/{externalPatientId}/plan/{planId}/token?"</code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Patient-getPlanToken-0-java">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
@@ -1754,10 +1761,10 @@ public class PatientApiExample {
         //function_key.setApiKeyPrefix("Token");
 
         PatientApi apiInstance = new PatientApi();
-        String patientId = patientId_example; // String | The external system's Id for the the patient.
+        String externalPatientId = externalPatientId_example; // String | The external system's Id for the the patient.
         UUID planId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // UUID | The Id of the template plan to assign.
         try {
-            'String' result = apiInstance.getPlanToken(patientId, planId);
+            'String' result = apiInstance.getPlanToken(externalPatientId, planId);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling PatientApi#getPlanToken");
@@ -1774,10 +1781,10 @@ public class PatientApiExample {
 
     public static void main(String[] args) {
         PatientApi apiInstance = new PatientApi();
-        String patientId = patientId_example; // String | The external system's Id for the the patient.
+        String externalPatientId = externalPatientId_example; // String | The external system's Id for the the patient.
         UUID planId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // UUID | The Id of the template plan to assign.
         try {
-            'String' result = apiInstance.getPlanToken(patientId, planId);
+            'String' result = apiInstance.getPlanToken(externalPatientId, planId);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling PatientApi#getPlanToken");
@@ -1796,13 +1803,13 @@ public class PatientApiExample {
 [apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"code"];
 // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 //[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"code"];
-String *patientId = patientId_example; // The external system's Id for the the patient.
+String *externalPatientId = externalPatientId_example; // The external system's Id for the the patient.
 UUID *planId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // The Id of the template plan to assign.
 
 PatientApi *apiInstance = [[PatientApi alloc] init];
 
 // Gets an access token for the specified plan.
-[apiInstance getPlanTokenWith:patientId
+[apiInstance getPlanTokenWith:externalPatientId
     planId:planId
               completionHandler: ^('String' output, NSError* error) {
                             if (output) {
@@ -1826,7 +1833,7 @@ function_key.apiKey = "YOUR API KEY"
 //function_key.apiKeyPrefix['code'] = "Token"
 
 var api = new IncludeHealthApi.PatientApi()
-var patientId = patientId_example; // {{String}} The external system's Id for the the patient.
+var externalPatientId = externalPatientId_example; // {{String}} The external system's Id for the the patient.
 var planId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // {{UUID}} The Id of the template plan to assign.
 
 var callback = function(error, data, response) {
@@ -1836,7 +1843,7 @@ var callback = function(error, data, response) {
     console.log('API called successfully. Returned data: ' + data);
   }
 };
-api.getPlanToken(patientId, planId, callback);
+api.getPlanToken(externalPatientId, planId, callback);
 </code></pre>
                             </div>
 
@@ -1863,13 +1870,13 @@ namespace Example
             // Configuration.Default.ApiKeyPrefix.Add("code", "Bearer");
 
             var apiInstance = new PatientApi();
-            var patientId = patientId_example;  // String | The external system's Id for the the patient.
+            var externalPatientId = externalPatientId_example;  // String | The external system's Id for the the patient.
             var planId = new UUID(); // UUID | The Id of the template plan to assign.
 
             try
             {
                 // Gets an access token for the specified plan.
-                'String' result = apiInstance.getPlanToken(patientId, planId);
+                'String' result = apiInstance.getPlanToken(externalPatientId, planId);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -1892,11 +1899,11 @@ Swagger\Client\Configuration::getDefaultConfiguration()->setApiKey('code', 'YOUR
 // Swagger\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('code', 'Bearer');
 
 $api_instance = new Swagger\Client\ApiPatientApi();
-$patientId = patientId_example; // String | The external system's Id for the the patient.
+$externalPatientId = externalPatientId_example; // String | The external system's Id for the the patient.
 $planId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // UUID | The Id of the template plan to assign.
 
 try {
-    $result = $api_instance->getPlanToken($patientId, $planId);
+    $result = $api_instance->getPlanToken($externalPatientId, $planId);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling PatientApi->getPlanToken: ', $e->getMessage(), PHP_EOL;
@@ -1915,11 +1922,11 @@ $WWW::SwaggerClient::Configuration::api_key->{'code'} = 'YOUR_API_KEY';
 #$WWW::SwaggerClient::Configuration::api_key_prefix->{'code'} = "Bearer";
 
 my $api_instance = WWW::SwaggerClient::PatientApi->new();
-my $patientId = patientId_example; # String | The external system's Id for the the patient.
+my $externalPatientId = externalPatientId_example; # String | The external system's Id for the the patient.
 my $planId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; # UUID | The Id of the template plan to assign.
 
 eval { 
-    my $result = $api_instance->getPlanToken(patientId => $patientId, planId => $planId);
+    my $result = $api_instance->getPlanToken(externalPatientId => $externalPatientId, planId => $planId);
     print Dumper($result);
 };
 if ($@) {
@@ -1941,12 +1948,12 @@ swagger_client.configuration.api_key['code'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = swagger_client.PatientApi()
-patientId = patientId_example # String | The external system's Id for the the patient.
+externalPatientId = externalPatientId_example # String | The external system's Id for the the patient.
 planId = 38400000-8cf0-11bd-b23e-10b96e4ef00d # UUID | The Id of the template plan to assign.
 
 try: 
     # Gets an access token for the specified plan.
-    api_response = api_instance.get_plan_token(patientId, planId)
+    api_response = api_instance.get_plan_token(externalPatientId, planId)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling PatientApi->getPlanToken: %s\n" % e)</code></pre>
@@ -1961,11 +1968,11 @@ except ApiException as e:
                                   <th width="150px">Name</th>
                                   <th>Description</th>
                                 </tr>
-                                  <tr><td style="width:150px;">patientId*</td>
+                                  <tr><td style="width:150px;">externalPatientId*</td>
                                   <td>
                                   
                                   
-                                      <div id="d2e199_getPlanToken_patientId">
+                                      <div id="d2e199_getPlanToken_externalPatientId">
                                           <div class="json-schema-view">
                                               <div class="primitive">
                                                   <span class="type">
@@ -2075,6 +2082,305 @@ except ApiException as e:
                       </div>
                       <hr>
                   </section>
+                <section id="api-Plan">
+                  <h1>Plan</h1>
+                    <div id="api-Plan-selfReportSession">
+                      <article id="api-Plan-selfReportSession-0" data-group="User" data-name="selfReportSession" data-version="0">
+                        <div class="pull-left">
+                          <h1>selfReportSession</h1>
+                          <p>Self-reports a session for the specified Plan.</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked">Self-reports a session for the specified Plan.</p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="patch"><code><span class="pln">/api/v1/plan/{id}/self-report</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Plan-selfReportSession-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Plan-selfReportSession-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Plan-selfReportSession-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Plan-selfReportSession-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Plan-selfReportSession-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Plan-selfReportSession-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Plan-selfReportSession-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Plan-selfReportSession-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Plan-selfReportSession-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Plan-selfReportSession-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Plan-selfReportSession-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Plan-selfReportSession-0-curl">
+                           <pre class="prettyprint"><code class="language-bsh">curl -X PATCH\
+\
+"https://includeprocess-addplannotificationt-669.azurewebsites.net/api/v1/plan/{id}/self-report?"</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Plan-selfReportSession-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.PlanApi;
+
+import java.io.File;
+import java.util.*;
+
+public class PlanApiExample {
+
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+        // Configure API key authorization: function_key
+        ApiKeyAuth function_key = (ApiKeyAuth) defaultClient.getAuthentication("function_key");
+        function_key.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //function_key.setApiKeyPrefix("Token");
+
+        PlanApi apiInstance = new PlanApi();
+        UUID id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // UUID | The Id of the Plan to be self-reported.
+        try {
+            apiInstance.selfReportSession(id);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling PlanApi#selfReportSession");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Plan-selfReportSession-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.PlanApi;
+
+public class PlanApiExample {
+
+    public static void main(String[] args) {
+        PlanApi apiInstance = new PlanApi();
+        UUID id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // UUID | The Id of the Plan to be self-reported.
+        try {
+            apiInstance.selfReportSession(id);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling PlanApi#selfReportSession");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Plan-selfReportSession-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Plan-selfReportSession-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+// Configure API key authorization: (authentication scheme: function_key)
+[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"code"];
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"code"];
+UUID *id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // The Id of the Plan to be self-reported.
+
+PlanApi *apiInstance = [[PlanApi alloc] init];
+
+// Self-reports a session for the specified Plan.
+[apiInstance selfReportSessionWith:id
+              completionHandler: ^(NSError* error) {
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Plan-selfReportSession-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var IncludeHealthApi = require('include_health_api');
+var defaultClient = IncludeHealthApi.ApiClient.instance;
+
+// Configure API key authorization: function_key
+var function_key = defaultClient.authentications['function_key'];
+function_key.apiKey = "YOUR API KEY"
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//function_key.apiKeyPrefix['code'] = "Token"
+
+var api = new IncludeHealthApi.PlanApi()
+var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // {{UUID}} The Id of the Plan to be self-reported.
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully.');
+  }
+};
+api.selfReportSession(id, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Plan-selfReportSession-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Plan-selfReportSession-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class selfReportSessionExample
+    {
+        public void main()
+        {
+
+            // Configure API key authorization: function_key
+            Configuration.Default.ApiKey.Add("code", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.ApiKeyPrefix.Add("code", "Bearer");
+
+            var apiInstance = new PlanApi();
+            var id = new UUID(); // UUID | The Id of the Plan to be self-reported.
+
+            try
+            {
+                // Self-reports a session for the specified Plan.
+                apiInstance.selfReportSession(id);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling PlanApi.selfReportSession: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Plan-selfReportSession-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure API key authorization: function_key
+Swagger\Client\Configuration::getDefaultConfiguration()->setApiKey('code', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// Swagger\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('code', 'Bearer');
+
+$api_instance = new Swagger\Client\ApiPlanApi();
+$id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // UUID | The Id of the Plan to be self-reported.
+
+try {
+    $api_instance->selfReportSession($id);
+} catch (Exception $e) {
+    echo 'Exception when calling PlanApi->selfReportSession: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Plan-selfReportSession-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::PlanApi;
+
+# Configure API key authorization: function_key
+$WWW::SwaggerClient::Configuration::api_key->{'code'} = 'YOUR_API_KEY';
+# uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+#$WWW::SwaggerClient::Configuration::api_key_prefix->{'code'} = "Bearer";
+
+my $api_instance = WWW::SwaggerClient::PlanApi->new();
+my $id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; # UUID | The Id of the Plan to be self-reported.
+
+eval { 
+    $api_instance->selfReportSession(id => $id);
+};
+if ($@) {
+    warn "Exception when calling PlanApi->selfReportSession: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Plan-selfReportSession-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: function_key
+swagger_client.configuration.api_key['code'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# swagger_client.configuration.api_key_prefix['code'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = swagger_client.PlanApi()
+id = 38400000-8cf0-11bd-b23e-10b96e4ef00d # UUID | The Id of the Plan to be self-reported.
+
+try: 
+    # Self-reports a session for the specified Plan.
+    api_instance.self_report_session(id)
+except ApiException as e:
+    print("Exception when calling PlanApi->selfReportSession: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+                            <div class="methodsubtabletitle">Path parameters</div>
+                            <table id="methodsubtable">
+                                <tr>
+                                  <th width="150px">Name</th>
+                                  <th>Description</th>
+                                </tr>
+                                  <tr><td style="width:150px;">id*</td>
+                                  <td>
+                                  
+                                  
+                                      <div id="d2e199_selfReportSession_id">
+                                          <div class="json-schema-view">
+                                              <div class="primitive">
+                                                  <span class="type">
+                                                      UUID
+                                                  </span>
+                                                      <span class="format">
+                                                          (uuid)
+                                                      </span>
+                                  
+                                                      <div class="inner description">
+                                                          The Id of the Plan to be self-reported.
+                                                      </div>
+                                              </div>
+                                                  <div class="inner required">
+                                                      Required
+                                                  </div>
+                                          </div>
+                                      </div>
+                                  </td>
+                                  </tr>
+                            </table>
+
+
+
+
+                            <div class="methodsubtabletitle">Query parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                            </table>
+
+                          <h2>Responses</h2>
+                            <h3> Status: 200 - No description </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
+                  </section>
                 <section id="api-Session">
                   <h1>Session</h1>
                     <div id="api-Session-getSessionReport">
@@ -2112,7 +2418,7 @@ except ApiException as e:
                            <pre class="prettyprint"><code class="language-bsh">curl -X GET\
 \
 -H "Accept: application/json"\
-"http://localhost:7071/api/v1/session/{id}/report?"</code></pre>
+"https://includeprocess-addplannotificationt-669.azurewebsites.net/api/v1/session/{id}/report?"</code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Session-getSessionReport-0-java">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
@@ -2395,7 +2701,7 @@ except ApiException as e:
       },
       "examples" : {
         "GetReportExample" : {
-          "value" : "{\"id\":\"b73b1c94-3661-4051-8951-6698c3ba691d\",\"start\":\"2024-04-04T09:01:02-05:00\",\"end\":\"2024-04-04T09:08:09-05:00\",\"episode\":{\"id\":\"00bac6aa-8d36-4ba3-bcd3-ec632514f860\",\"referredOn\":\"2024-04-03T12:34:56-05:00\"},\"activities\":[{\"id\":\"ee0bd684-c567-46cb-8f3a-4dfe5820e70f\",\"start\":\"2024-04-04T09:01:02-05:00\",\"end\":\"2024-04-04T09:05:06-05:00\",\"name\":\"Balance - Feet Together, 10s\",\"measurements\":[{\"name\":\"Lateral Trunk Lean ROM\",\"value\":5.102976708420755,\"displayValue\":\"5°\"}]},{\"id\":\"571c59bf-2113-4737-9f00-90ad30306f7b\",\"start\":\"2024-04-04T09:01:02-05:00\",\"end\":\"2024-04-04T09:05:06-05:00\",\"name\":\"Wong-Baker Pain Scale\",\"measurements\":[{\"name\":\"Wong-Baker Pain Scale\",\"value\":10.0,\"displayValue\":\"10\"}]}]}"
+          "value" : "{\"id\":\"ced87d6f-b494-4699-8a26-be7c94dfbd4d\",\"start\":\"2024-04-04T09:01:02-05:00\",\"end\":\"2024-04-04T09:08:09-05:00\",\"episode\":{\"id\":\"419688a8-85a3-4a4c-898c-000f2645a084\",\"referredOn\":\"2024-04-03T12:34:56-05:00\"},\"activities\":[{\"id\":\"da475ec4-a6d4-4727-ab1c-3a821dcd618b\",\"start\":\"2024-04-04T09:01:02-05:00\",\"end\":\"2024-04-04T09:05:06-05:00\",\"name\":\"Balance - Feet Together, 10s\",\"measurements\":[{\"name\":\"Lateral Trunk Lean ROM\",\"value\":5.102976708420755,\"displayValue\":\"5°\"}]},{\"id\":\"1fc0613c-e68f-4679-985a-dfefd7e7a66e\",\"start\":\"2024-04-04T09:01:02-05:00\",\"end\":\"2024-04-04T09:05:06-05:00\",\"name\":\"Wong-Baker Pain Scale\",\"measurements\":[{\"name\":\"Wong-Baker Pain Scale\",\"value\":10.0,\"displayValue\":\"10\"}]}]}"
         }
       }
     }
@@ -2466,7 +2772,7 @@ except ApiException as e:
                            <pre class="prettyprint"><code class="language-bsh">curl -X GET\
 \
 -H "Accept: application/json"\
-"http://localhost:7071/api/v1/status?"</code></pre>
+"https://includeprocess-addplannotificationt-669.azurewebsites.net/api/v1/status?"</code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Status-getStatus-0-java">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
