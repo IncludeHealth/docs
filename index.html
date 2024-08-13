@@ -78,7 +78,7 @@
                     </li>
                 </ul>
                 <li>
-                    <a href="api.html">API Details</a>
+                    <a href="#api">API Access</a>
                 </li>
                 <li>
                     <a href="https://www.includehealth.com">IncludeHealth</a>
@@ -449,6 +449,19 @@
                 <h1>Error Handling</h1>
                 <p>Failed Results: If a patient's data cannot be matched to a provided PlanId, it will be flagged in a
                     "failed results" CSV file which will also be available on the sFTP server.</p>
+            </section>
+            <section id="api">
+                <h1>API Access</h1>
+                <p>Technical API Documentation is available <a href="api.html">here.</a></p>
+                <h2>Endpoints</h2>
+                <p>There are two API endpoints, one for a "sandbox" environment, and another for production.</p>
+                <ul>
+                    <li>Sandbox: api-sandbox.includehealth.com</li>
+                    <li>Production: api.includehealth.com</li>
+                </ul>
+                <h2>API Keys</h2>
+                <p>Keys can be obtained by contacting customer service, and must be appended to the query string of each request as follows.</p>
+                <p><code>api.includehealth.com/api/v1/status?code={APIKEY}</code> where "{APIKEY}" is the key assigned to your organization.</p>
             </section>
         </main>
     </div>
