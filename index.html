@@ -79,6 +79,14 @@
                 </ul>
                 <li>
                     <a href="#api">API Access</a>
+                    <ul>
+                        <li>
+                            <a href="#api-endpoints">Endpoints</a>
+                        </li>
+                        <li>
+                            <a href="#api-keys">API Keys</a>
+                        </li>
+                    </ul>                    
                 </li>
                 <li>
                     <a href="https://www.includehealth.com">IncludeHealth</a>
@@ -454,15 +462,19 @@
             <section id="api">
                 <h1>API Access</h1>
                 <p>Technical API Documentation is available <a href="api.html">here.</a></p>
-                <h2>Endpoints</h2>
-                <p>There are two API endpoints, one for a "sandbox" environment, and another for production.</p>
-                <ul>
-                    <li>Sandbox: api-sandbox.includehealth.com</li>
-                    <li>Production: api.includehealth.com</li>
-                </ul>
-                <h2>API Keys</h2>
-                <p>Keys can be obtained by contacting customer service, and must be appended to the query string of each request as follows.</p>
-                <p><code>api.includehealth.com/api/v1/status?code={APIKEY}</code> where "{APIKEY}" is the key assigned to your organization.</p>
+                <section id="api-endpoints">
+                    <h2>Endpoints</h2>
+                    <p>There are two API endpoints, one for a "sandbox" environment, and another for production.</p>
+                    <ul>
+                        <li>Sandbox: api-sandbox.includehealth.com</li>
+                        <li>Production: api.includehealth.com</li>
+                    </ul>
+                </section>
+                <section id="api-keys">
+                    <h2>Keys</h2>
+                    <p>Keys can be obtained by contacting customer service, and must be appended to the query string of each request as follows.</p>
+                    <p><code>api.includehealth.com/api/v1/status?code={APIKEY}</code> where "{APIKEY}" is the key assigned to your organization.</p>
+                </section>
             </section>
         </main>
     </div>
