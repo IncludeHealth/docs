@@ -708,6 +708,12 @@
       "type" : "string",
       "description" : "Identifies the side of the body the exercise should use."
     },
+    "notificationType" : {
+      "type" : "integer",
+      "description" : "Defines the type of communications a plan owner receives.",
+      "format" : "int32",
+      "enum" : [ 0, 1, 2 ]
+    },
     "startDate" : {
       "minLength" : 1,
       "type" : "string",
@@ -719,8 +725,14 @@
             defs["patientPlanPostResponse"] = {
   "type" : "object",
   "properties" : {
+    "id" : {
+      "type" : "string",
+      "description" : "Gets the new Plan's identifier.",
+      "format" : "uuid"
+    },
     "planToken" : {
-      "type" : "string"
+      "type" : "string",
+      "description" : "Gets the Plan token."
     }
   }
 };
@@ -783,11 +795,16 @@
   }
 };
             defs["patientPostResponse"] = {
+  "required" : [ "patientId" ],
   "type" : "object",
   "properties" : {
     "patientId" : {
+      "minLength" : 1,
       "type" : "string",
-      "description" : "Gets or sets the external Patient identifier."
+      "description" : "Gets the external Patient identifier."
+    },
+    "plan" : {
+      "$ref" : "#/components/schemas/patientPlanPostResponse"
     }
   }
 };
@@ -963,7 +980,7 @@
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
                         <p></p>
-                        <p class="marked">Adds a new Patient to the database, and optionally creates Plans based on provided diagnosis codes.</p>
+                        <p class="marked">Adds a new Patient to the database, and optionally creates a Plan, if requested.</p>
                         <p></p>
                         <br />
                         <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/api/v1/patient</span></code></pre>
@@ -990,7 +1007,7 @@
 \
 -H "Accept: application/json"\
 -H "Content-Type: application/json"\
-"https://api.includehealth.com/api/v1/patient?"</code></pre>
+"http://localhost:7071/api/v1/patient?"</code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Patient-addPatient-0-java">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
@@ -1349,7 +1366,7 @@ except ApiException as e:
 \
 -H "Accept: application/json"\
 -H "Content-Type: application/json"\
-"https://api.includehealth.com/api/v1/patient/{externalPatientId}/plan?"</code></pre>
+"http://localhost:7071/api/v1/patient/{externalPatientId}/plan?"</code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Patient-assignPlan-0-java">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
@@ -1748,7 +1765,7 @@ except ApiException as e:
                            <pre class="prettyprint"><code class="language-bsh">curl -X GET\
 \
 -H "Accept: application/json"\
-"https://api.includehealth.com/api/v1/patient/{externalPatientId}/plan/{planId}/token?"</code></pre>
+"http://localhost:7071/api/v1/patient/{externalPatientId}/plan/{planId}/token?"</code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Patient-getPlanToken-0-java">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
@@ -2128,7 +2145,7 @@ except ApiException as e:
                           <div class="tab-pane active" id="examples-Plan-selfReportSession-0-curl">
                            <pre class="prettyprint"><code class="language-bsh">curl -X PATCH\
 \
-"https://api.includehealth.com/api/v1/plan/{id}/self-report?"</code></pre>
+"http://localhost:7071/api/v1/plan/{id}/self-report?"</code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Plan-selfReportSession-0-java">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
@@ -2428,7 +2445,7 @@ except ApiException as e:
                            <pre class="prettyprint"><code class="language-bsh">curl -X GET\
 \
 -H "Accept: application/json"\
-"https://api.includehealth.com/api/v1/session/{id}/report?"</code></pre>
+"http://localhost:7071/api/v1/session/{id}/report?"</code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Session-getSessionReport-0-java">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
@@ -2711,7 +2728,7 @@ except ApiException as e:
       },
       "examples" : {
         "GetReportExample" : {
-          "value" : "{\"id\":\"858fe36b-3d33-4f69-8f11-3b2ec4295e72\",\"start\":\"2024-04-04T09:01:02-05:00\",\"end\":\"2024-04-04T09:08:09-05:00\",\"episode\":{\"id\":\"1a3f5275-f1e2-4292-9526-607dff51a33d\",\"referredOn\":\"2024-04-03T12:34:56-05:00\"},\"activities\":[{\"id\":\"ab593ec3-5b09-4eee-b9ee-eda438079b2d\",\"start\":\"2024-04-04T09:01:02-05:00\",\"end\":\"2024-04-04T09:05:06-05:00\",\"name\":\"Balance - Feet Together, 10s\",\"measurements\":[{\"name\":\"Lateral Trunk Lean ROM\",\"value\":5.102976708420755,\"displayValue\":\"5°\"}]},{\"id\":\"12d3d3c2-628c-4c25-9834-b2468bdb42af\",\"start\":\"2024-04-04T09:01:02-05:00\",\"end\":\"2024-04-04T09:05:06-05:00\",\"name\":\"Wong-Baker Pain Scale\",\"measurements\":[{\"name\":\"Wong-Baker Pain Scale\",\"value\":10.0,\"displayValue\":\"10\"}]}]}"
+          "value" : "{\"id\":\"d6d5a139-46fa-41f3-9617-879878036d0d\",\"start\":\"2024-04-04T09:01:02-05:00\",\"end\":\"2024-04-04T09:08:09-05:00\",\"episode\":{\"id\":\"b809252a-d20e-489e-9dc3-505ba968bb04\",\"referredOn\":\"2024-04-03T12:34:56-05:00\"},\"activities\":[{\"id\":\"4eb054a6-0363-4774-a59f-76b2ed06715e\",\"start\":\"2024-04-04T09:01:02-05:00\",\"end\":\"2024-04-04T09:05:06-05:00\",\"name\":\"Balance - Feet Together, 10s\",\"measurements\":[{\"name\":\"Lateral Trunk Lean ROM\",\"value\":5.102976708420755,\"displayValue\":\"5°\"}]},{\"id\":\"fe0dd307-b99a-46ab-9c86-612f393e92e5\",\"start\":\"2024-04-04T09:01:02-05:00\",\"end\":\"2024-04-04T09:05:06-05:00\",\"name\":\"Wong-Baker Pain Scale\",\"measurements\":[{\"name\":\"Wong-Baker Pain Scale\",\"value\":10.0,\"displayValue\":\"10\"}]}]}"
         }
       }
     }
@@ -2782,7 +2799,7 @@ except ApiException as e:
                            <pre class="prettyprint"><code class="language-bsh">curl -X GET\
 \
 -H "Accept: application/json"\
-"https://api.includehealth.com/api/v1/status?"</code></pre>
+"http://localhost:7071/api/v1/status?"</code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Status-getStatus-0-java">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
