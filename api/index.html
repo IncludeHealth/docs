@@ -2943,7 +2943,7 @@ except ApiException as e:
                         <p class="marked">Self-reports a session for the specified Plan.</p>
                         <p></p>
                         <br />
-                        <pre class="prettyprint language-html prettyprinted" data-type="patch"><code><span class="pln">/api/v1/plan/{id}/self-report</span></code></pre>
+                        <pre class="prettyprint language-html prettyprinted" data-type="patch"><code><span class="pln">/api/v1/plan/{planId}/self-report</span></code></pre>
                         <p>
                           <h3>Usage and SDK Samples</h3>
                         </p>
@@ -2965,7 +2965,7 @@ except ApiException as e:
                           <div class="tab-pane active" id="examples-Plan-selfReportSession-0-curl">
                            <pre class="prettyprint"><code class="language-bsh">curl -X PATCH\
 \
-"https://api.includehealth.com/api/v1/plan/{id}/self-report?"</code></pre>
+"https://api.includehealth.com/api/v1/plan/{planId}/self-report?"</code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Plan-selfReportSession-0-java">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
@@ -2988,9 +2988,9 @@ public class PlanApiExample {
         //function_key.setApiKeyPrefix("Token");
 
         PlanApi apiInstance = new PlanApi();
-        UUID id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // UUID | The Id of the Plan to be self-reported.
+        UUID planId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // UUID | The Id of the Plan to be self-reported.
         try {
-            apiInstance.selfReportSession(id);
+            apiInstance.selfReportSession(planId);
         } catch (ApiException e) {
             System.err.println("Exception when calling PlanApi#selfReportSession");
             e.printStackTrace();
@@ -3006,9 +3006,9 @@ public class PlanApiExample {
 
     public static void main(String[] args) {
         PlanApi apiInstance = new PlanApi();
-        UUID id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // UUID | The Id of the Plan to be self-reported.
+        UUID planId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // UUID | The Id of the Plan to be self-reported.
         try {
-            apiInstance.selfReportSession(id);
+            apiInstance.selfReportSession(planId);
         } catch (ApiException e) {
             System.err.println("Exception when calling PlanApi#selfReportSession");
             e.printStackTrace();
@@ -3026,12 +3026,12 @@ public class PlanApiExample {
 [apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"code"];
 // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 //[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"code"];
-UUID *id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // The Id of the Plan to be self-reported.
+UUID *planId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // The Id of the Plan to be self-reported.
 
 PlanApi *apiInstance = [[PlanApi alloc] init];
 
 // Self-reports a session for the specified Plan.
-[apiInstance selfReportSessionWith:id
+[apiInstance selfReportSessionWith:planId
               completionHandler: ^(NSError* error) {
                             if (error) {
                                 NSLog(@"Error: %@", error);
@@ -3051,7 +3051,7 @@ function_key.apiKey = "YOUR API KEY"
 //function_key.apiKeyPrefix['code'] = "Token"
 
 var api = new IncludeHealthApi.PlanApi()
-var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // {{UUID}} The Id of the Plan to be self-reported.
+var planId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // {{UUID}} The Id of the Plan to be self-reported.
 
 var callback = function(error, data, response) {
   if (error) {
@@ -3060,7 +3060,7 @@ var callback = function(error, data, response) {
     console.log('API called successfully.');
   }
 };
-api.selfReportSession(id, callback);
+api.selfReportSession(planId, callback);
 </code></pre>
                             </div>
 
@@ -3087,12 +3087,12 @@ namespace Example
             // Configuration.Default.ApiKeyPrefix.Add("code", "Bearer");
 
             var apiInstance = new PlanApi();
-            var id = new UUID(); // UUID | The Id of the Plan to be self-reported.
+            var planId = new UUID(); // UUID | The Id of the Plan to be self-reported.
 
             try
             {
                 // Self-reports a session for the specified Plan.
-                apiInstance.selfReportSession(id);
+                apiInstance.selfReportSession(planId);
             }
             catch (Exception e)
             {
@@ -3114,10 +3114,10 @@ Swagger\Client\Configuration::getDefaultConfiguration()->setApiKey('code', 'YOUR
 // Swagger\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('code', 'Bearer');
 
 $api_instance = new Swagger\Client\ApiPlanApi();
-$id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // UUID | The Id of the Plan to be self-reported.
+$planId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // UUID | The Id of the Plan to be self-reported.
 
 try {
-    $api_instance->selfReportSession($id);
+    $api_instance->selfReportSession($planId);
 } catch (Exception $e) {
     echo 'Exception when calling PlanApi->selfReportSession: ', $e->getMessage(), PHP_EOL;
 }
@@ -3135,10 +3135,10 @@ $WWW::SwaggerClient::Configuration::api_key->{'code'} = 'YOUR_API_KEY';
 #$WWW::SwaggerClient::Configuration::api_key_prefix->{'code'} = "Bearer";
 
 my $api_instance = WWW::SwaggerClient::PlanApi->new();
-my $id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; # UUID | The Id of the Plan to be self-reported.
+my $planId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; # UUID | The Id of the Plan to be self-reported.
 
 eval { 
-    $api_instance->selfReportSession(id => $id);
+    $api_instance->selfReportSession(planId => $planId);
 };
 if ($@) {
     warn "Exception when calling PlanApi->selfReportSession: $@\n";
@@ -3159,11 +3159,11 @@ swagger_client.configuration.api_key['code'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = swagger_client.PlanApi()
-id = 38400000-8cf0-11bd-b23e-10b96e4ef00d # UUID | The Id of the Plan to be self-reported.
+planId = 38400000-8cf0-11bd-b23e-10b96e4ef00d # UUID | The Id of the Plan to be self-reported.
 
 try: 
     # Self-reports a session for the specified Plan.
-    api_instance.self_report_session(id)
+    api_instance.self_report_session(planId)
 except ApiException as e:
     print("Exception when calling PlanApi->selfReportSession: %s\n" % e)</code></pre>
                             </div>
@@ -3177,11 +3177,11 @@ except ApiException as e:
                                   <th width="150px">Name</th>
                                   <th>Description</th>
                                 </tr>
-                                  <tr><td style="width:150px;">id*</td>
+                                  <tr><td style="width:150px;">planId*</td>
                                   <td>
                                   
                                   
-                                      <div id="d2e199_selfReportSession_id">
+                                      <div id="d2e199_selfReportSession_planId">
                                           <div class="json-schema-view">
                                               <div class="primitive">
                                                   <span class="type">
@@ -3242,7 +3242,7 @@ except ApiException as e:
                         <p class="marked">Gets a summary report for the specified Session.</p>
                         <p></p>
                         <br />
-                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/api/v1/session/{id}/report</span></code></pre>
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/api/v1/session/{sessionId}/report</span></code></pre>
                         <p>
                           <h3>Usage and SDK Samples</h3>
                         </p>
@@ -3265,7 +3265,7 @@ except ApiException as e:
                            <pre class="prettyprint"><code class="language-bsh">curl -X GET\
 \
 -H "Accept: application/json"\
-"https://api.includehealth.com/api/v1/session/{id}/report?"</code></pre>
+"https://api.includehealth.com/api/v1/session/{sessionId}/report?"</code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Session-getSessionReport-0-java">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
@@ -3288,9 +3288,9 @@ public class SessionApiExample {
         //function_key.setApiKeyPrefix("Token");
 
         SessionApi apiInstance = new SessionApi();
-        UUID id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // UUID | The Id for the the Session.
+        UUID sessionId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // UUID | The Id for the the Session.
         try {
-            sessionReport result = apiInstance.getSessionReport(id);
+            sessionReport result = apiInstance.getSessionReport(sessionId);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling SessionApi#getSessionReport");
@@ -3307,9 +3307,9 @@ public class SessionApiExample {
 
     public static void main(String[] args) {
         SessionApi apiInstance = new SessionApi();
-        UUID id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // UUID | The Id for the the Session.
+        UUID sessionId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // UUID | The Id for the the Session.
         try {
-            sessionReport result = apiInstance.getSessionReport(id);
+            sessionReport result = apiInstance.getSessionReport(sessionId);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling SessionApi#getSessionReport");
@@ -3328,12 +3328,12 @@ public class SessionApiExample {
 [apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"code"];
 // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 //[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"code"];
-UUID *id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // The Id for the the Session.
+UUID *sessionId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // The Id for the the Session.
 
 SessionApi *apiInstance = [[SessionApi alloc] init];
 
 // Gets a summary report for the specified Session.
-[apiInstance getSessionReportWith:id
+[apiInstance getSessionReportWith:sessionId
               completionHandler: ^(sessionReport output, NSError* error) {
                             if (output) {
                                 NSLog(@"%@", output);
@@ -3356,7 +3356,7 @@ function_key.apiKey = "YOUR API KEY"
 //function_key.apiKeyPrefix['code'] = "Token"
 
 var api = new IncludeHealthApi.SessionApi()
-var id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // {{UUID}} The Id for the the Session.
+var sessionId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // {{UUID}} The Id for the the Session.
 
 var callback = function(error, data, response) {
   if (error) {
@@ -3365,7 +3365,7 @@ var callback = function(error, data, response) {
     console.log('API called successfully. Returned data: ' + data);
   }
 };
-api.getSessionReport(id, callback);
+api.getSessionReport(sessionId, callback);
 </code></pre>
                             </div>
 
@@ -3392,12 +3392,12 @@ namespace Example
             // Configuration.Default.ApiKeyPrefix.Add("code", "Bearer");
 
             var apiInstance = new SessionApi();
-            var id = new UUID(); // UUID | The Id for the the Session.
+            var sessionId = new UUID(); // UUID | The Id for the the Session.
 
             try
             {
                 // Gets a summary report for the specified Session.
-                sessionReport result = apiInstance.getSessionReport(id);
+                sessionReport result = apiInstance.getSessionReport(sessionId);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -3420,10 +3420,10 @@ Swagger\Client\Configuration::getDefaultConfiguration()->setApiKey('code', 'YOUR
 // Swagger\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('code', 'Bearer');
 
 $api_instance = new Swagger\Client\ApiSessionApi();
-$id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // UUID | The Id for the the Session.
+$sessionId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // UUID | The Id for the the Session.
 
 try {
-    $result = $api_instance->getSessionReport($id);
+    $result = $api_instance->getSessionReport($sessionId);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling SessionApi->getSessionReport: ', $e->getMessage(), PHP_EOL;
@@ -3442,10 +3442,10 @@ $WWW::SwaggerClient::Configuration::api_key->{'code'} = 'YOUR_API_KEY';
 #$WWW::SwaggerClient::Configuration::api_key_prefix->{'code'} = "Bearer";
 
 my $api_instance = WWW::SwaggerClient::SessionApi->new();
-my $id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; # UUID | The Id for the the Session.
+my $sessionId = 38400000-8cf0-11bd-b23e-10b96e4ef00d; # UUID | The Id for the the Session.
 
 eval { 
-    my $result = $api_instance->getSessionReport(id => $id);
+    my $result = $api_instance->getSessionReport(sessionId => $sessionId);
     print Dumper($result);
 };
 if ($@) {
@@ -3467,11 +3467,11 @@ swagger_client.configuration.api_key['code'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = swagger_client.SessionApi()
-id = 38400000-8cf0-11bd-b23e-10b96e4ef00d # UUID | The Id for the the Session.
+sessionId = 38400000-8cf0-11bd-b23e-10b96e4ef00d # UUID | The Id for the the Session.
 
 try: 
     # Gets a summary report for the specified Session.
-    api_response = api_instance.get_session_report(id)
+    api_response = api_instance.get_session_report(sessionId)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling SessionApi->getSessionReport: %s\n" % e)</code></pre>
@@ -3486,11 +3486,11 @@ except ApiException as e:
                                   <th width="150px">Name</th>
                                   <th>Description</th>
                                 </tr>
-                                  <tr><td style="width:150px;">id*</td>
+                                  <tr><td style="width:150px;">sessionId*</td>
                                   <td>
                                   
                                   
-                                      <div id="d2e199_getSessionReport_id">
+                                      <div id="d2e199_getSessionReport_sessionId">
                                           <div class="json-schema-view">
                                               <div class="primitive">
                                                   <span class="type">
@@ -3548,7 +3548,7 @@ except ApiException as e:
       },
       "examples" : {
         "GetReportExample" : {
-          "value" : "{\"activities\":[{\"activityId\":\"afeaf6c1-1580-40da-abfd-1505230b055f\",\"end\":\"2024-04-04T09:05:06-05:00\",\"measurements\":[{\"displayValue\":\"5°\",\"name\":\"Lateral Trunk Lean ROM\",\"value\":5.102976708420755}],\"name\":\"Balance - Feet Together, 10s\",\"start\":\"2024-04-04T09:01:02-05:00\"},{\"activityId\":\"86edfb5e-7ac3-4f45-a56c-f84dfb675cfa\",\"end\":\"2024-04-04T09:05:06-05:00\",\"measurements\":[{\"displayValue\":\"10\",\"name\":\"Wong-Baker Pain Scale\",\"value\":10.0}],\"name\":\"Wong-Baker Pain Scale\",\"start\":\"2024-04-04T09:01:02-05:00\"}],\"end\":\"2024-04-04T09:08:09-05:00\",\"episode\":{\"episodeId\":\"68e219af-8fcc-4a02-8c0b-daad8b3f14ae\",\"referredOn\":\"2024-04-03T12:34:56-05:00\"},\"sessionId\":\"50c22be9-ee3b-49dc-9a28-c4d8faded816\",\"start\":\"2024-04-04T09:01:02-05:00\"}"
+          "value" : "{\"activities\":[{\"activityId\":\"c4891cac-f69e-43bc-a096-97b08c93c5ac\",\"end\":\"2024-04-04T09:05:06-05:00\",\"measurements\":[{\"displayValue\":\"5°\",\"name\":\"Lateral Trunk Lean ROM\",\"value\":5.102976708420755}],\"name\":\"Balance - Feet Together, 10s\",\"start\":\"2024-04-04T09:01:02-05:00\"},{\"activityId\":\"e941b0ab-59d9-48ce-b112-e2604d569d70\",\"end\":\"2024-04-04T09:05:06-05:00\",\"measurements\":[{\"displayValue\":\"10\",\"name\":\"Wong-Baker Pain Scale\",\"value\":10.0}],\"name\":\"Wong-Baker Pain Scale\",\"start\":\"2024-04-04T09:01:02-05:00\"}],\"end\":\"2024-04-04T09:08:09-05:00\",\"episode\":{\"episodeId\":\"ff3e6d21-a8d7-4ab6-8c30-d92fbf49daf2\",\"referredOn\":\"2024-04-03T12:34:56-05:00\"},\"sessionId\":\"087a8095-a2ed-4d7b-9492-797cf223007e\",\"start\":\"2024-04-04T09:01:02-05:00\"}"
         }
       }
     }
